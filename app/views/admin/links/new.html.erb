@@ -1,0 +1,20 @@
+<h1>Новая ссылка</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Назад', admin_links_path %> |
+
+    <% if @post.present? %>
+
+        Статья:
+        <%=link_to @post[:name], [:edit,:admin,@post]%>
+
+
+    <% end %>
+  </div>
+</div>
+<div class='space'></div>
+
+<%= render 'form' %>
+
+

@@ -1,0 +1,38 @@
+<h1>Все рекламные блоки</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новый рекламный блок', new_admin_advert_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('activerecord.attributes.advert.name')%></th>
+        <th><%= t('activerecord.attributes.advert.position')%></th>
+        <th></th>
+      </tr>
+
+      <% @adverts.each do |advert| %>
+          <tr>
+            <td><%= link_to advert.name, edit_admin_advert_path(advert) %></td>
+            <td><%= advert.position %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, advert] %>
+              <%= link_to '[х]', [:admin, advert], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+

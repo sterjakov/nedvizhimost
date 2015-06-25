@@ -1,0 +1,38 @@
+<h1>Все пользователи</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новый пользователь', new_admin_user_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th>Имя</th>
+        <th>Роль</th>
+        <th></th>
+      </tr>
+
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, edit_admin_user_path(user) %></td>
+            <td><%= user.get_role %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, user] %>
+              <%= link_to '[х]', [:admin, user], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+

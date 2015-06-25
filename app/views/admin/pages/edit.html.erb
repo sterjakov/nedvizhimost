@@ -1,0 +1,14 @@
+<h1>Редактирование страницы</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Показать', [:admin, @page] %> |
+    <%= link_to('Смотреть на сайте', "/page/#{@page.alt}") + " | " %>
+    <%= link_to 'Назад', admin_pages_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<%= render 'form' %>
+

@@ -1,0 +1,8 @@
+<% if post.category.present? %>
+
+    <div style='margin: 3px 0px 17px;'>
+        <p class='gray' style='display:block; float: left;'>Категория:&nbsp;</p>
+        <%= link_to post.category.name, main_posts_path( category: post.category.alt ) %>
+    </div>
+
+<% end %>

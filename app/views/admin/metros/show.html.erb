@@ -1,0 +1,33 @@
+<h1>Просмотр станции метро #<%= @metro.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_metro_path(@metro) %> |
+    <%= link_to 'Назад', admin_metros_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.metro.name') %></b>
+      <%= @metro.name %>
+    </p>
+
+
+  </div>
+</div>

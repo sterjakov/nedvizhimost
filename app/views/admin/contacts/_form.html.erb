@@ -1,0 +1,76 @@
+<!--noindex-->
+<% if @contact.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@contact.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @contact.errors.count %> <%= Russian::p(@contact.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @contact.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <a name='notice'></a>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+    <% if controller_name == 'main'
+         form_url    = main_page_path(alt: 'kontakti')
+         form_record = @contact
+       else
+         form_url    = false
+         form_record = [:admin, @contact]
+       end %>
+
+    <%= form_for(form_record, url: form_url) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <div class='hr'></div>
+
+        <div class="field">
+          <%= f.label :author %>
+          <%= f.text_field :author %>
+        </div>
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.text_field :email %>
+        </div>
+        <div class="field">
+          <%= f.label :phone, class: 'required' %>
+          <%= f.text_field :phone %>
+        </div>
+        <div class="field">
+          <%= f.label :description, class: 'required' %>
+          <%= f.text_area :description, rows: 5 %>
+        </div>
+
+        <div class="fields">
+          <%= f.label :captcha, class: 'required' %>
+          <%= f.simple_captcha label: 'captcha' %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit t('send'), class: 'button' %>
+        </div>
+    <% end %>
+
+  </div>
+</div>
+<!--/noindex-->

@@ -1,0 +1,7 @@
+<div class='field'>
+    <%= f.label :image %>
+    <%= image_tag(f.object.image.url, { height: 30 }) if f.object.image? && controller_name != 'main' %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :_destroy %>
+    <%= link_to t('remove'), '#', class: 'remove_fields' %>
+</div>

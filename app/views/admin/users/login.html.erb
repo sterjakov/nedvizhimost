@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Вход на сайт</title>
+  <%= stylesheet_link_tag    "admin", :media => "all" %>
+  <%= javascript_include_tag "admin" %>
+</head>
+<body>
+    <div style="display: table; width: 100%; height: 100%;">
+        <div id="main" style="display: table-cell; vertical-align: middle; height: 100%;">
+
+          <div class="block" style="width: 280px; margin: 0 auto;">
+            <div class="offset">
+
+              <p style="margin-bottom: 5px;">Войти на сайт</p>
+
+
+              <%= form_for([:admin, @user], url: { action: 'auth' }, method: :post) do |f| %>
+
+                  <%= f.text_field :name, style: 'width: 128px;', placeholder: 'Логин' %>
+                  <%= f.password_field :password_key, style: 'width: 128px;', placeholder: 'Пароль' %>
+                  <br>
+                  <%= f.submit "Войти", style: "background-color: #1988f4; padding: 4px 6px; font-size: 15px; border: 0; color: #fff; cursor: pointer;" %>
+
+              <% end %>
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+</body>
+</html>

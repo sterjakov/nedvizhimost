@@ -1,0 +1,16 @@
+<h1>Редактирование категории</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Показать', [:admin, @category] %> |
+    <%= link_to('Смотреть на сайте', "/category/#{@category.alt}") %> |
+    <%= link_to 'Назад', admin_categories_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+
+
+<%= render 'form' %>
+

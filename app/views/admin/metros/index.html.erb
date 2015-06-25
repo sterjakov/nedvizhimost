@@ -1,0 +1,36 @@
+<h1>Все станции метро</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новая станция метро', new_admin_metro_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('activerecord.attributes.metro.name')%></th>
+        <th></th>
+      </tr>
+
+      <% @metros.each do |metro| %>
+          <tr>
+            <td><%= link_to metro.name, edit_admin_metro_path(metro) %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, metro] %>
+              <%= link_to '[х]', [:admin, metro], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+<% if @photo.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@photo.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @photo.errors.count %> <%= Russian::p(@photo.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @photo.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <%= form_for([:admin, @photo]) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <hr>
+
+        <div class="field">
+          <%= f.label :image, 'Адрес картинки' %>
+          <%= f.text_field :image %>
+        </div>
+        <div class="field">
+          <%= f.label :house_id, 'Id недвижимости' %>
+          <%= f.number_field :house_id %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

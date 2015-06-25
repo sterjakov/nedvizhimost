@@ -1,0 +1,42 @@
+<h1>Все контакты</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новые контакты', new_admin_contact_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th>Author</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+
+      <% @contacts.each do |contact| %>
+          <tr>
+            <td><%= contact.author %></td>
+            <td><%= contact.email %></td>
+            <td><%= contact.phone %></td>
+            <td><%= contact.description %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, contact] %>
+              <%= link_to 'Редактировать', edit_admin_contact_path(contact) %>
+              <%= link_to '[х]', [:admin, contact], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+

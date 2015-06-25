@@ -1,0 +1,150 @@
+<%= form_for([:admin, @post]) do |f| %>
+
+<% if @post.errors.any? %>
+<div class='block'>
+    <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@post.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @post.errors.count %> <%= Russian::p(@post.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    </div>
+</div>
+<div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <hr>
+
+    <div class="field">
+      <%= f.label :name, class: 'required' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :alt, class: 'required' %>
+      <%= f.text_field :alt %>
+    </div>
+
+    <div class="field">
+      <%= f.label :category_id, class: 'required' %>
+      <%= f.select :category_id, categories_for_select.drop(1), { prompt: true }  %>
+    </div>
+
+    </div>
+</div>
+
+<%= f.label :description, class: 'desc required' %>
+
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+
+        <div class="field">
+          <%= f.cktext_area :description, ckeditor: {disableNativeSpellChecker: false, removePlugins: 'liststyle,tabletools,contextmenu', height: 400,toolbar: [['Source'],['-'], ['Cut'],['Copy'],['Paste'],['PasteText'],['PasteFromWord'],['-'],['Undo'],['Redo'],['Bold'],['Italic'],['Underline'],['Strike'],['Subscript'],['Superscript'],['Smiley'],[''],['NumberedList'],['BulletedList'],['Blockquote'],['Link'],['Image'],['Format'],['Em']]} %>
+        </div>
+
+  </div>
+</div>
+
+<div class='space'></div>
+
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+
+    <div class="crop field">
+
+
+      <% if action_name == 'edit' && @post.image.thumb.present? %>
+          <%= image_tag(@post.image.thumb, style: 'margin-left: 30px;') %>
+
+          <div class="field">
+            <%= f.label :remove_image %>
+            <%= f.check_box :remove_image %>
+          </div>
+
+          <div class='clear'></div>
+          <div class='hr'></div>
+
+      <% end %>
+
+      <%= f.hidden_field :image_crop %>
+      <%= f.label :image %>
+      <%= f.file_field :image, class: 'left' %>
+
+      <p class='help gray'>размер 565px * 200px</p>
+      <div class='clear'></div>
+      <div class="field">
+        <%= f.label :image_alt %>
+        <%= f.text_field :image_alt %>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+</div>
+
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+
+        <% content_for :head do %>
+        <script>
+          $(function(){
+              $("#post_created_at").datetimepicker({
+                  dateFormat: 'yy-mm-dd',
+                  timeFormat: 'HH:mm:ss',
+                  timeOnlyTitle: 'Выберите время',
+                  timeText: 'Время',
+                  hourText: 'Часы',
+                  minuteText: 'Минуты',
+                  secondText: 'Секунды',
+                  currentText: 'Теперь',
+                  closeText: 'Закрыть' });
+          })
+        </script>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :created_at, class: 'required' %>
+          <%= f.text_field :created_at %>
+        </div>
+        <div class="field">
+          <%= f.label :title, class: 'required' %>
+          <%= f.text_field :title %>
+        </div>
+        <div class="field">
+          <%= f.label :meta_key %>
+          <%= f.text_field :meta_key %>
+        </div>
+        <div class="field">
+          <%= f.label :meta_description %>
+          <%= f.text_area :meta_description, rows: 4, style:'float: left; margin-bottom: 5px;' %>
+          <div class='clear'></div>
+        </div>
+        <div class="field">
+          <%= f.label :tag_list %>
+          <%= f.text_field :tag_list, placeholder: 'Через запятую' %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+
+  </div>
+</div>
+<% end %>

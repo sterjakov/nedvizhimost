@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+<h1>Новый заказ с сайта "Недвижимость в Москве"</h1>
+<p>
+  <b>Недвижимость:</b> <%= admin_house_url(@order.house) %>  <br />
+  <b>Имя:</b>          <%= @order.author %>                  <br />
+  <b>Телефон:</b>      <%= @order.phone %>                   <br />
+  <b>E-Mail:</b>       <%= @order.email %>                   <br />
+  <b>Комментарий:</b>  <%= @order.description %>             <br />
+</p>
+
+Ссылка на заказ в админке: <br />
+<%= admin_order_url(@order) %>
+
+
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<h1 class='catalog_title'>
+  <% if params[:realty_type] == 'sell' %>
+    Продажа недвижимости
+  <% elsif params[:realty_type] == 'rent' %>
+      Аренда недвижимотси
+  <% else %>
+      Каталог недвижимости
+  <% end %>
+</h1>

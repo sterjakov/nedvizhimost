@@ -1,0 +1,49 @@
+<% if @advert.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@advert.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @advert.errors.count %> <%= Russian::p(@advert.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @advert.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <hr>
+
+    <%= form_for([:admin, @advert]) do |f| %>
+
+        <div class="field">
+          <%= f.label :position, class: 'required' %>
+          <%= f.select :position, Advert::POSITION, prompt: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :name, class: 'required' %>
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="field">
+          <%= f.label :description %>
+          <%= f.text_area :description %>
+        </div>
+        
+        
+        <div class="actions">
+          <%= f.submit 'Сохранить блок' %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

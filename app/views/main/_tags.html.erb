@@ -1,0 +1,16 @@
+<% if post.tags.present? %>
+
+    <p class='gray' style='float: left;'>&nbsp;|&nbsp;</p>
+    <ul class='tags' style='float: left;'>
+      <li><p class='gray'>Теги:</p></li>
+      <% tag_len = post.tags.length %>
+      <% post.tags.each_with_index do |tag,index| %>
+          <li class='gray'><%= link_to tag.name, "/tag/#{tag.alt}", class: 'gray', rel: 'nofollow' %>
+            <% unless tag_len-1 == index  %>
+                ,
+            <% end %>
+          </li>
+      <% end %>
+    </ul>
+
+<% end %>

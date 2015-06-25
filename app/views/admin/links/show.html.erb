@@ -1,0 +1,43 @@
+<h1>Просмотр ссылки #<%= @link.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_link_path(@link) %> |
+    <%= link_to 'Назад', admin_links_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b>Статья:</b>
+      <%= link_to @link.post.name, [:edit, :admin, @link.post] %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.link.name') %></b>
+      <%= @link.name %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.link.url') %></b>
+      <%= @link.url %>
+    </p>
+
+
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<% content_for :title do %><%= @house.address + @title_postfix %><% end %>
+<% content_for :meta_keywords do %>Каталог, недвижимость, москва<% end %>
+<% content_for :meta_description do %>Каталог недвижимости в Москве<% end %>
+
+<div id='breadcrumbs'>
+  <a href="/" class='gray'>Главная</a>
+  <span class="gray">/</span>
+  <a class='gray catalog_title'>
+    <%= link_to(@house.catalog[:name],"/#{@house.catalog[:alt]}", class: 'gray') %>
+  </a>
+</div>
+
+<div id='realty'>
+
+  <h1>Адрес: <%= @house.address %></h1>
+
+    <p>
+      <label class='blue'>Код предложения:</label> <%= @house.id %>
+    </p>
+    <div class='hr'></div>
+
+    <p>
+      <%= "<label class='blue'>Регион:                                       </label> Москва                                                                                                        <br />".html_safe %>
+      <%= "<label class='blue'>Станция:                                      </label> #{@house.metro.name}                                                                                          <br />".html_safe if @house.metro.present? %>
+      <%= "<label class='blue'>До метро пешком:                              </label> #{@house.metro_time_on_foot.to_s + " " + Russian::p(@house.metro_time_on_foot, 'минута','минут','минут')}     <br />".html_safe if @house.metro_time_on_foot %>
+      <%= "<label style='font-size:14px;' class='blue'>До метро транспортом: </label> #{@house.metro_time_transport.to_s + " " + Russian::p(@house.metro_time_transport, 'минута','минут','минут')} <br />".html_safe if @house.metro_time_transport %>
+      <%= "<label class='blue'>Цена:                                         </label> #{number_to_currency(@house.price, precision: 0)}                                                             <br />".html_safe if @house.price %>
+      <%= "<label class='blue'>Комиссия агента:                              </label> #{@house.comission}%                                                                                          <br />".html_safe if @house.comission %>
+      <%= "<label class='blue'>Тип сделки:                                   </label> #{House::SELL_TYPE[@house.sell_type][0]}                                                                      <br />".html_safe if @house.sell_type %>
+      <%= "<label class='blue'>Кредит:                                       </label> #{House::CREDIT[@house.credit][0]}                                                                            <br />".html_safe if @house.credit %>
+    </p>
+    <div class='hr'></div>
+    <p>
+      <%= "<label class='blue'>Депозит за мебель:</label> #{(@house.deposit) ?             'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Мебель в комнатах:</label> #{(@house.furniture_floor) ?     'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Мебель на кухне:  </label> #{(@house.furniture_kitchen) ?   'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Холодильник:      </label> #{(@house.refrigerator) ?        'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Телевизор:        </label> #{(@house.tv) ?                  'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Стиральная машина:</label> #{(@house.washing_mashine) ?     'Есть' : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Можно с животными:</label> #{(@house.animal) ?              'Да'   : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+      <%= "<label class='blue'>Можно с детьми:   </label> #{(@house.children) ?            'Да'   : '<span class="gray">Нет</span>'.html_safe} <br />".html_safe %>
+    </p>
+    <div class='hr'></div>
+    <p>
+      <%= "<label class='blue'>Тип недвижимости: </label> #{House::APARTMENT_TYPE[@house.apartment_type][0]}                          <br />".html_safe if @house.apartment_type %>
+      <%= "<label class='blue'>Тип собственности:</label> #{House::APARTMENT_AGE[@house.apartment_age][0]}                            <br />".html_safe if @house.apartment_age %>
+      <%= "<label class='blue'>Тип дома:         </label> #{House::HOUSE_TYPE[@house.house_type][0]}                                  <br />".html_safe if @house.house_type %>
+      <%= "<label class='blue'>Тип помещения:    </label> #{House::RESIDENTIAL_TYPE[@house.residential_type][0]}                      <br />".html_safe if @house.residential_type %>
+      <%= "<label class='blue'>Период аренды:    </label> #{House::PERIOD[@house.period][0]}                                          <br />".html_safe if @house.period %>
+      <%= "<label class='blue'>Состояние мебели: </label> #{House::FURNITURE_STATUS[@house.furniture_status][0]}                      <br />".html_safe if @house.furniture_status %>
+    </p>
+    <div class='hr'></div>
+    <p>
+      <%= "<label class='blue'>Этаж:             </label> #{@house.floor_apartments}                             <br />".html_safe if @house.floor_apartments %>
+      <%= "<label class='blue'>Кол-во этажей:    </label> #{@house.floor_house}                                  <br />".html_safe if @house.floor_house %>
+      <%= "<label class='blue'>Общая площадь:    </label> #{@house.square_main} м2                               <br />".html_safe if @house.square_main %>
+      <%= "<label class='blue'>Жилая площадь:    </label> #{@house.square_live} м2                               <br />".html_safe if @house.square_live %>
+      <%= "<label class='blue'>Площадь кухни:    </label> #{@house.square_kitchen} м2                            <br />".html_safe if @house.square_kitchen %>
+      <%= "<label class='blue'>Ремонт:           </label> #{House::APARTMENT_STATUS[@house.apartment_status][0]} <br />".html_safe if @house.apartment_status %>
+      <%= "<label class='blue'>Кол-во балконов:  </label> #{@house.balcon}                                       <br />".html_safe if @house.balcon %>
+      <%= "<label class='blue'>Кол-во лоджий:    </label> #{@house.loggia}                                       <br />".html_safe if @house.loggia %>
+      <%= "<label class='blue'>Тип комнат:       </label> #{House::ROOM_TYPE[@house.room_type][0]}               <br />".html_safe if @house.room_type %>
+      <%= "<label class='blue'>Окна:             </label> #{House::WINDOWS[@house.windows][0]}                   <br />".html_safe if @house.windows %>
+      <%= "<label class='blue'>Санузел:          </label> #{House::BATHROOM[@house.bathroom][0]}                 <br />".html_safe if @house.bathroom %>
+    </p>
+
+    <% if @house.description.present? %>
+    <div class='hr'></div>
+    <p>
+      <%= @house.description %>
+    </p>
+    <% end %>
+
+
+    <% if @house.photos.present? %>
+    <div class='hr'></div>
+    <div style='width: 578px; background-color: #9e9e9e' id='photos'>
+    <ul>
+    <% @house.photos.each do |photo| %>
+        <li><%= link_to( image_tag( photo.image.thumb ), "#{photo.image}", class: 'fancybox', rel: 'gallery1' ) %></li>
+    <% end %>
+    </ul>
+    </div>
+    <%= image_tag '/images/g_l.png', class:'gallery_left' %>
+    <%= image_tag '/images/g_r.png', class:'gallery_right' %>
+    <% end %>
+
+    <div class='hr'></div>
+    <div id='yandex_map' style='width: 100%; height: 300px;'></div>
+
+</div>
+
+<div id="comment-fields bottom">
+  <h3 class="blue" style='font-size: 20px;  margin-bottom: 10px;'>Оставить заявку</h3>
+</div>
+
+<%= render 'admin/orders/form' %>
+
+<div style='width: 100%; height: 8px;'></div>
+
+
+
+<div class='clear'></div>
+
+<%= render 'benefits' %>

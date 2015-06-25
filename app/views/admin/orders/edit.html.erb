@@ -1,0 +1,13 @@
+<h1>Редактирование заказа</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Показать', [:admin, @order] %> |
+    <%= link_to 'Назад', admin_orders_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<%= render 'form' %>
+

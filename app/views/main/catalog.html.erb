@@ -1,0 +1,38 @@
+<div id='breadcrumbs'>
+  <%= link_to 'Главная', root_path, class: 'gray', rel: 'nofollow' %>
+  <span class="gray">/</span>
+  <%= content_tag('a', (@request_path == 'katalog_prodaji') ? 'Продажа недвижимости' : 'Аренда недвижимости', class: 'gray') %>
+  <% if params[:search] == 'on' %>
+  <a href="#x" class="close_custom_search" rel="nofollow" style="float: right;">cкрыть поиск</a>
+  <div class='search_icon' style="display:none;"></div>
+  <% else %>
+  <a href="#x" class='blue custom_search' rel="nofollow" style='float: right;'>Расширенный поиск</a>
+  <div class='search_icon'></div>
+  <% end %>
+</div>
+
+<%= render 'admin/search/search_fields' %>
+
+<div id='catalog'>
+
+  <% @houses.each do |house| %>
+  <div class='block preview'>
+    <div class='offset'>
+      <%= link_to(image_tag("/uploads/photo/image/#{house.thumb}".html_safe), "/realty/#{house.id}") %>
+      <%= link_to( truncate(house.address, length:22), "/realty/#{house.id}", class: 'blue') %>
+      <p>
+        <%= truncate("м. #{house.metro.name rescue nil}, #{house.metro_time_on_foot} мин до метро пешком", length: 35) %>
+        <br>
+        <span class="blue">Цена: <%= number_to_currency(house.price, precision: 0) %> </span>
+      </p>
+
+    </div>
+  </div>
+  <% end %>
+
+</div>
+
+
+<%= will_paginate @houses, { realty_type: @realty_type } %>
+
+<%= render 'benefits' %>

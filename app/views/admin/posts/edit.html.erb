@@ -1,0 +1,19 @@
+<h1>Редактирование статьи</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Показать', [:admin, @post] %> |
+    <%= link_to('Смотреть на сайте', "/#{@post.alt}") %> |
+    <%= link_to('Создать ссылку', new_admin_link_path(:post_id => @post[:id])) %> |
+    <%= link_to 'Удалить', [:admin, @post], method: :delete, data: { confirm: 'Вы уверены?' } %> |
+    <%= link_to 'Назад', admin_posts_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<%= render 'form' %>
+
+
+
+

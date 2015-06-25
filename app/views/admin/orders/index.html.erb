@@ -1,0 +1,38 @@
+<h1>Все заказы</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новый заказ', new_admin_order_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('created_at') %></th>
+        <th><%= t('activerecord.attributes.order.description') %></th>
+        <th></th>
+      </tr>
+
+      <% @orders.each do |order| %>
+          <tr class='<%= 'moderation' if order.status == 0 %>'>
+            <td><%= link_to I18n.localize(order.created_at, :format => :long), edit_admin_order_path(order) %></td>
+            <td><%= truncate(order.description, length: 40) %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, order] %>
+              <%= link_to '[х]', [:admin, order], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <%= will_paginate @orders %>
+
+  </div>
+</div>
+
+
+
+

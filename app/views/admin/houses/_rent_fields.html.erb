@@ -1,0 +1,57 @@
+<div class="field">
+  <%= f.label :comission %>
+  <%= f.number_field :comission, placeholder: 'в процентах' %>
+</div>
+
+<div class="field">
+  <%= f.label :period, class: 'required' %>
+  <%= f.select :period, House::PERIOD, prompt: true %>
+</div>
+<div class="field">
+  <%= f.label :furniture_status %>
+  <%= f.select :furniture_status, House::FURNITURE_STATUS, prompt: true %>
+</div>
+
+<div class='hr'></div>
+
+<div class='checkboxes'>
+    <div class='left'>
+      <div class="field">
+        <%= f.check_box :deposit %>
+        <%= f.label :deposit %>
+      </div>
+      <div class="field">
+        <%= f.check_box :furniture_floor %>
+        <%= f.label :furniture_floor %>
+      </div>
+      <div class="field">
+        <%= f.check_box :furniture_kitchen %>
+        <%= f.label :furniture_kitchen %>
+      </div>
+    </div>
+    <div class='center'>
+      <div class="field">
+        <%= f.check_box :refrigerator %>
+        <%= f.label :refrigerator %>
+      </div>
+      <div class="field">
+        <%= f.check_box :tv %>
+        <%= f.label :tv %>
+      </div>
+      <div class="field">
+        <%= f.check_box :washing_mashine %>
+        <%= f.label :washing_mashine %>
+      </div>
+    </div>
+    <div class='right'>
+      <div class="field">
+        <%= f.check_box :animal %>
+        <%= f.label :animal %>
+      </div>
+      <div class="field">
+        <%= f.check_box :children %>
+        <%= f.label :children %>
+      </div>
+    </div>
+    <div class='clear'></div>
+</div>

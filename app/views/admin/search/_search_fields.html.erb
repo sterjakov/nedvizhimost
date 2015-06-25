@@ -1,0 +1,136 @@
+
+
+<div class='search block bottom'>
+  <div class='offset'>
+    <div class='space'></div>
+
+    <% if controller_name == 'main'
+         form_url    = (@realty_type == 1) ? '/page/katalog-prodaji?search=on' : '/page/katalog-arendi?search=on'
+         form_record = @house
+       else
+         form_url    = admin_search_path(realty_type: @realty_type)
+         form_record = [:admin, @house]
+       end
+    %>
+
+    <%= form_for(form_record, url: form_url ) do |f| %>
+        <% if @house.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@house.errors.count, "error") %> prohibited this house from being saved:</h2>
+
+              <ul>
+                <% @house.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+
+            </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :code %>
+          <%= f.text_field :code, size: 10 %>
+        </div>
+
+        <div class='hr'></div>
+
+        <div class="field">
+          <%= f.label :apartment_type %>
+          <%= f.select :apartment_type, House::APARTMENT_TYPE, {:include_blank => 'Любой' } %>
+        </div>
+
+        <div class='hr'></div>
+
+        <div class="field">
+          <%= f.label :price %>
+          <%= f.text_field :price, size: 10,  placeholder: 'от' %>
+          <%= f.text_field :price_until, size: 10,  placeholder: 'до' %>
+        </div>
+
+        <div class='hr'></div>
+
+        <div class='left'>
+
+          <div class="field">
+            <%= f.label :square_main %>
+            <%= f.text_field :square_main, size: 2, placeholder: 'от' %>
+            <%= f.text_field :square_main_until, size: 2, placeholder: 'до' %>
+            <span class='info'>м2</span>
+          </div>
+
+          <div class="field">
+            <%= f.label :square_live %>
+            <%= f.text_field :square_live, size: 2, placeholder: 'от' %>
+            <%= f.text_field :square_live_until, size: 2, placeholder: 'до' %>
+            <span class='info'>м2</span>
+          </div>
+
+          <div class="field">
+            <%= f.label :square_kitchen %>
+            <%= f.text_field :square_kitchen, size: 2, placeholder: 'от' %>
+            <%= f.text_field :square_kitchen_until, size: 2, placeholder: 'до' %>
+            <span class='info'>м2</span>
+          </div>
+
+        </div>
+
+        <div class='right'>
+
+          <div class="field">
+            <%= f.label :floor_apartments %>
+            <%= f.text_field :floor_apartments, size: 2, placeholder: 'с' %>
+            <%= f.text_field :floor_apartments_until, size: 2, placeholder: 'по' %>
+          </div>
+
+          <div class='field checkbox'>
+            <%= f.label :but_last %>
+            <%= f.check_box :but_last %>
+          </div>
+
+        </div>
+
+        <div class='clear'></div>
+        <div class='hr'></div>
+
+        <div class='field multiple'>
+          <%= f.label :metro_id %>
+          <%= f.select :metro_id, Metro.all.map {|e| [e.name, e.id]}, {}, { multiple: true } %>
+          <div class='add_remove'>
+            <a href='#add' class='add'>→</a>
+            <a href='#remove' class='remove'>←</a>
+          </div>
+          <%= f.select :metro_selected, {}, {}, { multiple: true } %>
+          <div class='clear'></div>
+          <a href='#' class='clear_metro'>[x] Очистить</a>
+
+          <%= f.hidden_field :metro_collection %>
+
+          <div class='clear'></div>
+
+        </div>
+        <div class='hr'></div>
+        <div>
+          <%= f.label :metro_time %>
+          <%= f.text_field :metro_time_on_foot, size: 4, placeholder: 'от' %>
+          <%= f.text_field :metro_time_on_foot_until, size: 4, placeholder: 'до' %>
+          <span class='info'>пешком</span>
+        </div>
+        <div>
+          <%= f.label :metro_time %>
+          <%= f.text_field :metro_time_transport, size: 4, placeholder: 'от' %>
+          <%= f.text_field :metro_time_transport_until, size: 4, placeholder: 'до' %>
+          <span class='info'>транспортом</span>
+        </div>
+
+        <div class='clear'></div>
+        <div class='hr'></div>
+
+        <div class="actions">
+          <%= f.submit t('search'), class: 'button find' %>
+          <%= link_to 'Очистить все поля', '#clear_all', class: 'gray clear_all' %>
+        </div>
+
+
+    <% end %>
+  </div>
+</div>

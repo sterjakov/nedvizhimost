@@ -1,0 +1,78 @@
+<% if @feedback.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@feedback.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @feedback.errors.count %> <%= Russian::p(@feedback.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @feedback.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <a name='notice'></a>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <% if controller_name == 'main'
+         form_url    = main_page_path(alt: 'ostavit_otziv')
+         form_record = @feedback
+       else
+         form_url    = false
+         form_record = [:admin, @feedback]
+       end %>
+
+    <%= form_for(form_record, url: form_url) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <div class='hr'></div>
+
+        <div class="field">
+          <%= f.label :author, class: 'required' %>
+          <%= f.text_field :author %>
+        </div>
+        <div class="field">
+          <%= f.label :description, class: 'required' %>
+          <%= f.text_area :description %>
+        </div>
+
+        <% if controller_name == 'main' %>
+        <div class="fields">
+          <%= f.label :captcha, class: 'required' %>
+          <%= f.simple_captcha label: 'captcha' %>
+        </div>
+        <% end %>
+
+        <% unless controller_name == 'main' %>
+        <div class="fields">
+          <%= f.label :status, class: 'required' %>
+          <%= f.select :status, House::STATUS, prompt: true %>
+        </div>
+        <% end %>
+
+        <div class="actions">
+
+          <%= f.submit t('send_feedback'), class: 'button' %>
+        </div>
+    <% end %>
+
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<% if @user.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@user.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @user.errors.count %> <%= Russian::p(@user.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <hr>
+
+    <%= form_for([:admin, @user]) do |f| %>
+
+        <div class="field">
+          <%= f.label :name, class: 'required' %>
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password, class: 'required' %>
+          <%= f.password_field :password_key %>
+        </div>
+
+        <div class="field">
+          <%= f.label :role, class: 'required' %>
+          <%= f.select :role, User::ROLES, prompt: true, selected: true, class: 'required' %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title><%= yield :title %></title>
+  <meta name="keywords" content="<%= yield :meta_keywords %>">
+  <meta name="description" content="<%= yield :meta_description %>">
+  <%= csrf_meta_tags %>
+  <script src="//api-maps.yandex.ru/2.0/?load=package.full&amp;lang=ru-RU" type="text/javascript"></script>
+  <style type="text/css">
+    <%= raw Realty::Application.assets.find_asset('main.css').source %>
+  </style>
+  <link rel="shortcut icon" href="/favicon.png" type="image/png">
+  <script type="text/javascript">if (parent.frames.length > 0)top.location.replace(document.location);</script>
+  <link rel="canonical" href="http://<%= request.host%>/">
+</head>
+
+<body>
+
+<% if @auth %>
+    <div style='width: 100%; height: 41px;'></div>
+    <div class='admin'>
+      <div class='bar'>
+        <%= link_to 'Админка', '/admin/posts' %>
+        <%= admin_edit_link %>
+        | <%= link_to 'Выйти', '/exit' %>
+      </div>
+    </div>
+    <%= @results if @results %>
+<% end %>
+
+<div class='modal'>
+  <div class='window phone-order corner'>
+    <div class='offset'>
+      <div class='close'></div>
+      <p class='blue' style='font-size: 20px; display: block; margin-bottom: 10px;'>Заказ обратного звонка</p>
+    </div>
+  </div>
+  <div class='shadow'></div>
+</div>
+
+
+<div id="wrapper">
+  <div id='header'>
+    <a href="/"><div class='logo'></div></a>
+    <div style='width: 245px; float: left; margin-left: 12px; padding-top: 15px;'>
+      <%= link_to 'Недвижимость в Москве', root_path, class: 'title blue no-decoration' %>
+      <p class='address gray'>Бесплатные консультации</p>
+    </div>
+    <div class='vertical' style='height: 33px; float: left; margin: 20px 20px 0px 20px;'></div>
+    <div class='gray' style='float: left; margin-top: 17px;'>
+
+        <%= header_menu %>
+
+    </div>
+
+    <div style='float: right; margin: 13px 6px 0px 0px;'>
+      <p class='blue' style='font-size: 14px;'>Звоните прямо сейчас</p>
+      <p class='blue' style='font-size: 21px;'>(495) 627 63 55</p>
+    </div>
+    <div class='vertical' style='height: 33px; float: right; margin: 20px 20px 0px 20px;'></div>
+    <div style='float: right; margin-top: 19px; text-align: right;'>
+      <% if action_name == 'posts' and params[:page].nil? and params[:category].nil? %>
+          <h1><%= @settings[:main_head] %></h1>
+      <% else %>
+          <p style='font-size: 20px; width: 210px; line-height: 30px;' class='gray'>ул. Тверская д.16</p>
+      <% end %>
+
+
+    </div>
+  </div>
+
+  <div id="scroll">
+      <div id='menu'>
+
+        <div class="main corner">
+
+            <%= main_menu %>
+
+            <div style='float: right'>
+                <div class='button-menu'></div>
+            </div>
+
+        </div>
+
+      </div>
+  </div>
+
+  <div id='left'>
+    <div class='top ext-menu corner'>
+
+        <%= left_menu %>
+
+    </div>
+    <div class="block top">
+      <div class="offset">
+        <div style="width: 160px;">
+
+          <%= get_block 'left' %>
+
+        </div>
+      </div>
+    </div>
+
+    <% if @posts_tags %>
+    <!--noindex-->
+    <div class="block top">
+      <div class="offset">
+        <p class='blue bottom'>Теги</p>
+
+        <% len = @posts_tags.length %>
+        <% @posts_tags.each_with_index do |tag, index| %>
+            <%= link_to tag.name, main_posts_path(tag: tag.alt), rel: 'nofollow' %><% unless len-1 == index %>,
+            <% end %>
+        <% end %>
+
+      </div>
+    </div>
+    <!--/noindex-->
+    <% end %>
+
+
+  </div>
+  <div id='center'>
+    <%= yield %>
+  </div>
+  <div id='right'>
+    <!--noindex-->
+    <%= link_to(content_tag( :span, '', class: 'podarki'), '/page/podarki', rel: 'nofollow') %>
+    <%= link_to(content_tag( :span, '', class: 'skidki'), '/page/skidki', rel: 'nofollow') %>
+    <!--/noindex-->
+
+    <div class="block top">
+      <div class="offset">
+        <div style="width: 160px;">
+
+          <%= get_block 'right' %>
+
+        </div>
+      </div>
+    </div>
+
+    <% if @recent_feedbacks.any? %>
+    <div class="block top">
+      <div class="offset">
+        <div class='bottom'>
+          <%= link_to 'Все отзывы'.html_safe, "/otzivi" %>
+          <a href="#x" class='blue'></a>
+        </div>
+
+        <% len = @recent_feedbacks.length %>
+        <% @recent_feedbacks.each_with_index do |feedback, index| %>
+
+            <div class='bottom'><p class='gray'><%= feedback.author %></p></div>
+            <p>
+              <%= truncate(feedback.description, length: 100, omission: '...') %>
+            </p>
+
+            <% unless len-1 == index %>
+                <div class='hr'></div>
+            <% end %>
+
+        <% end %>
+
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+
+  <div class='clear'></div>
+    <!--noindex-->
+  <div id="footer" class='block top bottom'>
+    <div class='offset'>
+      <p class='gray' style='width: 500px; display: block; float: left;'>
+        <%= @footer_description %>
+        <br><%= link_to('Реклама', "/page/reklama", class: (params[:alt] == 'reklama') ? 'blue' : 'gray') %>
+      </p>
+
+      <div class='sterjakov' style='padding-right: 30px; padding-top: 0px; float: right;'>
+        <p class="gray">Разработка сайта</p>
+        <!--noindex-->
+          <%= link_to 'Стержаков', 'mailto:sterjakov@bk.ru', style: 'font-size: 16px;', target: '_blank', rel: 'nofollow' %>
+        <!--/noindex-->
+      </div>
+
+      <div class='links' style='float: right; margin-right: 20px;'>
+
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+        document.write("<a href='http://www.liveinternet.ru/click' "+
+              "target=_blank><img src='//counter.yadro.ru/hit?t14.11;r"+
+              escape(document.referrer)+((typeof(screen)=="undefined")?"":
+              ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                      screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+              ";"+Math.random()+
+              "' alt='LiveInternet'  title='LiveInternet: показано число просмотров за 24"+
+              " часа, посетителей за 24 часа и за сегодня' "+
+              "border='0' width='88' height='31'><\/a>")
+        //--></script><!--/LiveInternet-->
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "application" %>
+
+<%= get_block 'body' %>
+
+<!--/noindex-->
+
+</body>
+</html>

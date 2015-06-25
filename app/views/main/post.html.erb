@@ -1,0 +1,113 @@
+<% content_for :title do %><%= @post[:title].to_s + @title_postfix %><% end %>
+<% content_for :meta_keywords do %><%= @post[:meta_keywords] %><% end %>
+<% content_for :meta_description do %><%= @post[:meta_description] %><% end %>
+
+<div id='breadcrumbs'>
+  <%= link_to 'Главная', :root, class: 'gray', rel: 'nofollow' %>
+
+
+  <% if @post.category.present? %>
+      <span class="gray">/ </span>
+
+      <% @category_hierarchy = category_parents @post.category %>
+      <% category_len = @category_hierarchy.length %>
+      <% @category_hierarchy.each_with_index do |category,index| %>
+          <%= link_to category.name, "/category/#{category.alt}", class: 'gray', rel: 'nofollow' %>
+          <% unless category_len-1 == index %>
+              <span class='gray'> / </span>
+          <% end %>
+      <% end %>
+
+  <% end %>
+</div>
+
+<h1><%= @post.name %></h1>
+<p class='gray bottom' style='margin-bottom: 5px; float: left;'><%= l @post.created_at, format: :my %></p>
+
+<%= render 'tags', post: @post %>
+
+<div class='clear'></div>
+
+<div style="width: 336px; height: 280px; float: left; margin: 5px 8px 8px 0px">
+
+  <%= get_block 'post' %>
+
+</div>
+<div class='description'>
+    <p>
+      <%= links_in_post(@links, @post) %>
+    </p>
+</div>
+<div class='clear'></div>
+<div class='hr'></div>
+
+
+<% if @similar_posts.present? %>
+<!--noindex-->
+<div id='similar'>
+  <p class='blue top bottom'>Похожие статьи</p>
+
+  <ul>
+    <% @similar_posts.each_with_index do |post,index| %>
+        <li>
+          <%= link_to main_post_path( alt: post.alt ) do %>
+
+              <% if post.image.similar.present? %>
+                <%= image_tag post.image.similar, class: 'corner' %>
+              <% else %>
+                <span class="no-image corner">Нет картинки</span>
+              <% end %>
+
+              <%= post.name %>
+
+          <% end %>
+        </li>
+    <% end %>
+  </ul>
+
+
+
+  <div class="clear"></div>
+
+</div>
+<div class='hr'></div>
+<!--/noindex-->
+<% end %>
+
+
+<p class="blue head">Ваш комментарий</p>
+<div class="space"></div>
+
+<%= render 'admin/comments/form' %>
+
+<div style='width: 100%; height: 8px;'></div>
+
+<div id="comments" class='top bottom'>
+
+
+  <% if @comments.present? %>
+  <% len = @comments.length %>
+  <p class='blue bottom' style='font-size: 20px;'>Все комментарии (<%= len %>)</p>
+  <a name='comments'></a>
+  <% @comments.each_with_index do |comment, index| %>
+
+  <a name='comment-<%= comment.id %>'></a>
+  <p class='top gray' style='float: left;'><span class='blue'><%= comment.author %></span> пишет:</p>
+  <p class='gray' style='float: right;'><%= l comment.created_at, format: :comment %></p>
+  <div class='clear'></div>
+  <p class='top'>
+    <%= comment.description %>
+  </p>
+
+  <% unless len-1 == index %>
+  <div class='hr'></div>
+  <% end %>
+
+  <% end %>
+  <% end %>
+
+</div>
+
+<%= will_paginate @comments, params: { anchor: 'comments' } %>
+
+<%= render 'benefits' %>

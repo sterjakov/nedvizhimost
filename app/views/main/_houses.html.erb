@@ -1,0 +1,36 @@
+<%= render '/admin/search/search_fields' %>
+
+  <% if @houses.count > 0 %>
+
+    <div id='catalog'>
+
+      <% @houses.each do |house| %>
+          <div class='block preview'>
+            <div class='offset'>
+              <%= link_to(image_tag("/uploads/photo/image/#{house.thumb}".html_safe), "/realty/#{house.id}") %>
+              <%= link_to( truncate(house.address, length:22), "/realty/#{house.id}", class: 'blue') %>
+              <p>
+                <%= truncate("м. #{house.metro.name rescue nil}, #{house.metro_time_on_foot} мин до метро пешком", length: 35) %>
+                <br>
+                <span class="blue">Цена: <%= number_to_currency(house.price, precision: 0) %> </span>
+              </p>
+
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+      <div class='block'>
+        <div class='offset'>
+            <p>Таких позиций не нашлось.</p>
+        </div>
+      </div>
+
+  <% end %>
+
+
+
+<%= will_paginate @houses, { realty_type: @realty_type } %>

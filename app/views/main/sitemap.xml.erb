@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+   <% %w{post page}.each do |name| %>
+       <% @sitemap[:"#{name}"].each do |map| %>
+       <url>
+
+          <% if name == 'post'%>
+            <%= content_tag(:loc, "http://" + request.host_with_port + "/#{map[:url]}") %>
+            
+            <%# if map[:image] %>
+              <%#= content_tag('image:image') do %>
+                <%#= content_tag('image:loc', "http://" + request.host_with_port + "/#{map[:image]}")%>
+              <%# end %>
+            <%# end %>
+            
+          <% elsif name == 'page'%>
+            <%= content_tag(:loc, "http://" + request.host_with_port + "/page/#{map[:url]}") %>
+          <% elsif name == 'house'%>
+            <%= content_tag(:loc, "http://" + request.host_with_port + "/realty/#{map[:url]}") %>
+          <% end %>
+
+          <%= content_tag(:lastmod, map[:lastmod]) %>
+          <%= content_tag(:changefreq, map[:changefreq]) %>
+          <%= content_tag(:priority, map[:priority]) %>
+       </url>
+       <% end %>
+   <% end %>
+
+</urlset>

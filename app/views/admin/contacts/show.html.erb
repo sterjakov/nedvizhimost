@@ -1,0 +1,55 @@
+<h1>Просмотр контакта #<%= @contact.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_contact_path(@contact) %> |
+    <%= link_to 'Назад', admin_contacts_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@contact.created_at, format: :comment) %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.contact.author') %></b>
+      <%= @contact.author %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.contact.email') %></b>
+      <%= @contact.email %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.contact.phone') %></b>
+      <%= @contact.phone %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.contact.description') %></b>
+      <%= @contact.description %>
+    </p>
+
+
+
+
+  </div>
+</div>

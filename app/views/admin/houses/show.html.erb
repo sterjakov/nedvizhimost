@@ -1,0 +1,196 @@
+<h1>Просмотр недвижимости #<%= @house.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to('Одобрить', approve_admin_houses_path(id: @house.id)) + " | " if @house.status == 0 %>
+    <%= link_to 'Редактировать', edit_admin_house_path(@house, realty_type: (@house.realty_type == 1) ? 'sell' : 'rent' ) %> |
+    <%= link_to('Смотреть на сайте', "/realty/#{@house.id}") + " | " if @house.status == 1 %>
+    <%= link_to 'Назад', admin_houses_path(realty_type: (@house.realty_type == 1) ? 'sell' : 'rent' ) %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.apartment_type') %></b>
+      <%= House::APARTMENT_TYPE[@house.apartment_type][0] if @house.apartment_type %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.apartment_age') %></b>
+      <%= House::APARTMENT_AGE[@house.apartment_age][0] if @house.apartment_age %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.address') %></b>
+
+       <%= @house.address %>
+       <!--
+       <div id="address_for_map"><%= @house.address %></div>
+       <div id="map" style="width:600px; height:300px"></div>
+       -->
+
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.metro_id') %></b>
+      <%= Metro.find(@house.metro_id).name if @house.metro_id %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.metro_time_on_foot') %></b>
+      <%= @house.metro_time_on_foot %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.metro_time_transport') %></b>
+      <%= @house.metro_time_transport %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.house_type') %></b>
+      <%= House::HOUSE_TYPE[@house.house_type][0] if @house.house_type %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.floor_house') %></b>
+      <%= @house.floor_house %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.floor_apartments') %></b>
+      <%= @house.floor_apartments %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.square_main') %></b>
+      <%= @house.square_main %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.square_live') %></b>
+      <%= @house.square_live %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.square_kitchen') %></b>
+      <%= @house.square_kitchen %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.balcon') %></b>
+      <%= @house.balcon %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.loggia') %></b>
+      <%= @house.loggia %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.windows') %></b>
+      <%= House::WINDOWS[@house.windows][0] if @house.windows %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.apartment_status') %></b>
+      <%= House::APARTMENT_STATUS[@house.apartment_status][0] if @house.apartment_status %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.bathroom') %></b>
+      <%= House::BATHROOM[@house.bathroom][0] if @house.bathroom %>
+    </p>
+
+    <p class='desc'>
+      <b><%= t('activerecord.attributes.house.description') %></b>
+      <span>
+        <%= @house.description %>
+      </span>
+    </p>
+
+    <br>
+
+    <% if params[:realty_type] == 'sell' %>
+
+        <%= render 'show_sell' %>
+
+    <% end %>
+
+    <% if params[:realty_type] == 'rent' %>
+
+        <%= render 'show_rent' %>
+
+    <% end %>
+
+    </div>
+</div>
+
+<% if @house.photos.present? %>
+
+<label class='desc'>Картинки: </label><br>
+<div class='space'></div>
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <% @house.photos.map do |photo| %>
+          <%= image_tag photo.image, {height: 100} %>
+      <% end %>
+    </p>
+
+  </div>
+</div>
+
+<% end %>
+
+<label class='desc'>Отправитель:</label><br>
+
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.fio') %></b>
+      <%= @house.fio %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.phone') %></b>
+      <%= @house.phone %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.email') %></b>
+      <%= @house.email %>
+    </p>
+
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@house.created_at, format: :comment) %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.house.status') %></b>
+      <%= House::STATUS[@house.status][0] if @house.status.present? %>
+    </p>
+
+
+
+  </div>
+</div>

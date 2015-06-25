@@ -1,0 +1,17 @@
+<h1>Редактирования комментария</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to('Одобрить', approve_admin_comments_path(id: @comment.id)) + " | " if @comment.status == 0 %>
+    <%= link_to 'Показать', [:admin, @comment] %> |
+    <%= link_to('Смотреть на сайте', "/#{@comment.post.alt}#comment-#{@comment.id}") + " | " %>
+    <%= link_to 'Назад', admin_comments_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+
+
+<%= render 'form' %>
+

@@ -1,0 +1,256 @@
+<% content_for :head do %>
+    <script>
+        $(function(){
+            $("#house_created_at").datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                timeFormat: 'HH:mm:ss',
+                timeOnlyTitle: 'Выберите время',
+                timeText: 'Время',
+                hourText: 'Часы',
+                minuteText: 'Минуты',
+                secondText: 'Секунды',
+                currentText: 'Теперь',
+                closeText: 'Закрыть' });
+        })
+    </script>
+<% end %>
+
+<!--noindex-->
+<% if @house.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@house.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @house.errors.count %> <%= Russian::p(@house.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @house.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+
+<div id='add_house' class='block'>
+  <div class='offset'>
+
+
+    <% if controller_name == 'main'
+         form_record = @house
+         form_url    = main_add_realty_path( realty_type: 'sell' )
+       else
+         form_record = [:admin, @house]
+         form_url    = url_for_house_form(@house, params[:realty_type])
+       end %>
+
+    <%= form_for(form_record, url: form_url) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <div class='hr'></div>
+
+        <div class="field">
+          <%= f.label :fields_type %>
+          <%
+             selected = ''
+             if params[:realty_type].present?
+                selected = '2' if params[:realty_type] == 'rent'
+                selected = '1' if params[:realty_type] == 'sell'
+             end
+          %>
+          <%= f.select :fields_type, House::FIELDS_TYPE, prompt: true, selected: selected %>
+        </div>
+
+        <div class='<%= 'hidden_fields' if (!params[:realty_type].present?) %>'>
+
+            <div class='hr'></div>
+
+            <div class='sell_fields<%= ' active' if params[:realty_type] == 'sell' %> '>
+              <%= render '/admin/houses/sell_fields', f: f %>
+            </div>
+
+            <div class='rent_fields<%= ' active' if (params[:realty_type] == 'rent') %> '>
+              <%= render '/admin/houses/rent_fields', f: f %>
+            </div>
+
+            <div class='hr'></div>
+            
+            <div class="field">
+              <%= f.label :residential_type, class: 'required' %>
+              <%= f.select :residential_type, House::RESIDENTIAL_TYPE, prompt: true %>
+            </div>
+
+            <div class="field">
+            <%= f.label :apartment_type, class: 'required' %>
+            <%= f.select :apartment_type, House::APARTMENT_TYPE, prompt: true %>
+            </div>
+
+            <div class="field">
+            <%= f.label :apartment_age %>
+            <%= f.select :apartment_age, House::APARTMENT_AGE, prompt: true %>
+            </div>
+
+            <div class="field">
+            <%= f.label :house_type %>
+            <%= f.select :house_type, House::HOUSE_TYPE, prompt: true %>
+            </div>
+
+            <div class='hr'></div>
+
+            <div class="field">
+            <%= f.label :metro_id %>
+            <%= f.select :metro_id, Metro.all.map {|e| [e.name, e.id]}, prompt: true %>
+            </div>
+
+            <div class="field">
+            <%= f.label :metro_time_on_foot %>
+            <%= f.number_field :metro_time_on_foot %>
+            <span class='info'>минут</span>
+            </div>
+
+            <div class="field">
+            <%= f.label :metro_time_transport, style: 'font-size: 14px;' %>
+            <%= f.number_field :metro_time_transport %>
+            <span class='info'>минут</span>
+            </div>
+
+            <div class='hr'></div>
+
+            <div class="field">
+            <%= f.label :address, class: 'required' %>
+            <%= f.text_field :address, placeholder: 'Город, улица, номер дома' %>
+            </div>
+
+            <div class="field">
+            <%= f.label :floor_house, class: 'required' %>
+            <%= f.number_field :floor_house %>
+            </div>
+            <div class="field">
+            <%= f.label :floor_apartments %>
+            <%= f.number_field :floor_apartments %>
+            </div>
+            <div class="field">
+            <%= f.label :square_main, class: 'required' %>
+            <%= f.text_field :square_main, size: 20 %>
+            </div>
+            <div class="field">
+            <%= f.label :square_live, class: 'required' %>
+            <%= f.text_field :square_live, size: 20 %>
+            </div>
+            <div class="field">
+            <%= f.label :square_kitchen %>
+            <%= f.text_field :square_kitchen, size: 20 %>
+            </div>
+            <div class="field">
+            <%= f.label :balcon %>
+            <%= f.number_field :balcon %>
+            </div>
+            <div class="field">
+            <%= f.label :loggia %>
+            <%= f.number_field :loggia %>
+            </div>
+            <div class="field">
+            <%= f.label :room_type %>
+            <%= f.select :room_type, House::ROOM_TYPE, prompt: true %>
+            </div>
+            <div class="field">
+            <%= f.label :windows %>
+            <%= f.select :windows, House::WINDOWS, prompt: true %>
+            </div>
+            <div class="field">
+            <%= f.label :apartment_status %>
+            <%= f.select :apartment_status, House::APARTMENT_STATUS, prompt: true %>
+            </div>
+            <div class="field">
+            <%= f.label :bathroom %>
+            <%= f.select :bathroom, House::BATHROOM, prompt: true %>
+            </div>
+
+
+            <div class="field">
+            <%= f.label :description %>
+            <%= f.text_area :description %>
+            </div>
+
+            <div class="field">
+            <%= f.label :price, class: 'required' %>
+            <%= f.number_field :price, placeholder: 'в рублях' %>
+            </div>
+
+            <div class='hr'></div>
+
+            <div class="photos">
+            <p>Фотографии</p>
+
+            <%= f.fields_for :photos do |builder| %>
+                <%= render '/admin/houses/photo_fields', f: builder  %>
+            <% end %>
+
+            <%= link_to_add_fields t('add_photo'), f, :photos %>
+            </div>
+            <div class='hr'></div>
+
+            <div class="field">
+            <%= f.label :fio, class: 'required' %>
+            <%= f.text_field :fio %>
+            </div>
+            <div class="field">
+            <%= f.label :phone, class: 'required' %>
+            <%= f.text_field :phone %>
+            </div>
+            <div class="field">
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+            </div>
+
+            <% if controller_name == 'main' %>
+            <div class="fields">
+              <%= f.label :captcha, class: 'required' %>
+              <%= f.simple_captcha label: 'captcha' %>
+            </div>
+            <% end %>
+
+            <div class='hr'></div>
+
+          <div class="field">
+            <%= f.label :created_at, class: 'required' %>
+            <%= f.text_field :created_at %>
+          </div>
+
+            <% unless controller_name == 'main' %>
+            <div class="fields">
+              <%= f.label :status, class: 'required' %>
+              <%= f.select :status, House::STATUS, prompt: true %>
+            </div>
+            <% end %>
+
+            <% if action_name == 'edit' %>
+              <%= f.hidden_field :realty_type %>
+            <% else %>
+              <%= f.hidden_field :realty_type, value: @realty_type %>
+            <% end %>
+
+            <div class="actions">
+            <%= f.submit t('save'), class: 'button top' %>
+            </div>
+        </div>
+
+    <% end %>
+  </div>
+</div>
+<!--/noindex-->
+

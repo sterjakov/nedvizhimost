@@ -1,0 +1,36 @@
+<% if @metro.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@metro.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @metro.errors.count %> <%= Russian::p(@metro.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @metro.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <hr>
+
+    <%= form_for([:admin, @metro]) do |f| %>
+        <div class="field">
+          <%= f.label :name, class: 'required' %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

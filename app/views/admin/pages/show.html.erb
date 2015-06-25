@@ -1,0 +1,65 @@
+<h1>Просмотр страницы #<%= @page.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_page_path(@page) %> |
+    <%= link_to('Смотреть на сайте', "/page/#{@page.alt}") + " | " %>
+    <%= link_to 'Назад', admin_pages_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<label class='desc'><%= t('activerecord.attributes.post.description') %></label>
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <%= @page.description %>
+  </div>
+</div>
+
+<label class='desc'>Страница</label>
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@page.created_at, format: :comment) %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.page.name') %></b>
+      <%= @page.name %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.page.alt') %></b>
+      <%= @page.alt %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.page.meta_keywords') %></b>
+      <%= @page.meta_keywords %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.page.meta_description') %></b>
+      <%= @page.meta_description %>
+    </p>
+
+    </div>
+</div>
+

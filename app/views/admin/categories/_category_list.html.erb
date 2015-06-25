@@ -1,0 +1,11 @@
+<ul>
+  <% @categories.each do |category| %>
+      <% parent_id = (parent_id.present?) ? parent_id : 0 %>
+      <% if category.parent_id == parent_id %>
+          <li><%= link_to "" + category.name, edit_admin_category_path(category) %>
+            <%= link_to '[x]', [:admin, category], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            <%= render '/admin/categories/category_list', parent_id: category.id if category.child.present? %>
+          </li>
+      <% end %>
+  <% end %>
+</ul>

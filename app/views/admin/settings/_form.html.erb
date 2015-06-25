@@ -1,0 +1,86 @@
+<%= form_for(@settings, url: '/admin/settings/update') do |f| %>
+
+<% if @settings.errors.any? %>
+<div class='block'>
+    <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@settings.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @settings.errors.count %> <%= Russian::p(@settings.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @settings.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    </div>
+</div>
+<div class='space'></div>
+<% end %>
+
+    <% if notice %>
+        <div class='block'>
+          <div class='offset'>
+            <p id="notice"><%= notice %></p>
+          </div>
+        </div>
+
+        <div class='space'></div>
+    <% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <hr>
+
+    <div class="field">
+      <%= f.label :email, class: 'required' %>
+      <%= f.text_field :email %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :main_head, class: 'required' %>
+      <%= f.text_field :main_head %>
+    </div>
+
+    <div class="field">
+      <%= f.label :title, class: 'required' %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= f.label :title_postfix, class: 'required' %>
+      <%= f.text_field :title_postfix %>
+    </div>
+
+    <div class="field">
+      <%= f.label :meta_keywords, class: 'required' %>
+      <%= f.text_field :meta_keywords %>
+    </div>
+
+    <div class="field">
+      <%= f.label :meta_description, class: 'required' %>
+      <%= f.text_area :meta_description, rows: '4' %>
+      <div class='clear'></div>
+    </div>
+
+    <div class="field">
+      <%= f.label :similar_posts_count, class: 'required' %>
+      <%= f.number_field :similar_posts_count %>
+    </div>
+
+    <div class="field">
+      <%= f.label :footer_description, class: 'required' %>
+      <%= f.text_area  :footer_description, rows: '4', style: 'float: left; margin-bottom: 10px;' %>
+    </div>
+
+    <div class="actions">
+      <%= f.hidden_field :id %>
+      <%= f.submit 'Сохранить настройки'%>
+    </div>
+
+  </div>
+</div>
+<% end %>

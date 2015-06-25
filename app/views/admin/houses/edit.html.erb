@@ -1,0 +1,17 @@
+<%= render 'h1' %>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to('Одобрить', approve_admin_houses_path(id: @house.id)) + " | " if @house.status == 0 %>
+    <%= link_to 'Показать', admin_house_path(@house, :relaty_type => params[:realty_type]) %> |
+    <%= link_to('Смотреть на сайте', "/realty/#{@house.id}") + " | " if @house.status == 1 %>
+    <%= link_to 'Назад', admin_houses_path(:realty_type => params[:realty_type]) %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+
+
+<%= render 'form' %>
+

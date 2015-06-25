@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+<h1>Новый отзыв с сайта "Недвижимость в Москве"</h1>
+<p>
+  <b>Автор:</b>        <%= @feedback.author %>       <br />
+  <b>Отзыв:</b>        <%= @feedback.description %>  <br />
+</p>
+
+Ссылка на отзыв в админке: <br />
+<%= admin_feedback_url(@feedback) %>
+
+</body>
+</html>

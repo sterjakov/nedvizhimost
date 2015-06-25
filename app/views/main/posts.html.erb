@@ -1,0 +1,99 @@
+
+<% content_for :title do %><%= @title %><% end %>
+<% content_for :meta_keywords do %><%= @meta_keywords %><% end %>
+<% content_for :meta_description do %><%= @meta_description %><% end %>
+
+
+<% if params[:category].present? || params[:tag].present? %>
+<div id='breadcrumbs'>
+  <%= link_to 'Главная', :root, class: 'gray', rel: 'nofollow' %>
+
+  <% if @category.present? %>
+    <span class="gray">/ </span>
+
+      <% @category_hierarchy = category_parents @category %>
+      <% category_len = @category_hierarchy.length %>
+      <% @category_hierarchy.each_with_index do |category,index| %>
+          <%= link_to category.name, "/category/#{category.alt}", class: 'gray', rel: 'nofollow' %>
+          <% unless category_len-1 == index %>
+              <span class='gray'> / </span>
+          <% end %>
+      <% end %>
+
+  <% end %>
+
+  <% if params[:tag].present? %>
+      <span class="gray">/ Тег: </span>
+      <%= link_to @tag.name, main_posts_path( tag: params[:tag] ), class: 'gray' %>
+  <% end %>
+
+</div>
+<% else %>
+<div style='width: 100%; height: 20px;'></div>
+<% end %>
+
+<%= @notice %>
+
+    <% post_len = @posts.length %>
+
+        <% if(post_len > 0) %>
+
+            <% @posts.each_with_index do |post, index| %>
+
+            <%# cache(post) do %>
+
+                <%= link_to post.name, "/#{post.alt}", class: 'blue head' %>
+                <p class='gray bottom' style='margin-bottom: 5px; float: left;'><%= l post.created_at, format: :my %></p>
+
+                <%= render 'tags', post: post %>
+
+                <div class='clear'></div>
+
+                <% unless index == 0 or !post.image.thumb.present? %>
+                <div class='image' style='width: 100%: height: 200px; padding:1px; background-color: #eee; margin: 5px 0px 5px'>
+                  <div style='background-color: #fff; padding: 5px;'>
+                    <%= link_to(image_tag(post.image.thumb, alt: post.alt), main_post_path(alt: post.alt), style: 'width: 565px;') %>
+                  </div>
+                </div>
+                <% end %>
+
+                <div class='description'>
+                    <%= truncate_html(post.description, length: 410, omission: ' ...').html_safe %>
+                </div>
+                <div class='clear'></div>
+
+                <!--noindex-->
+                <% if post.category.present? %>
+                <% @post_categories = category_parents(post.category) %>
+                <% category_len = @post_categories.length %>
+                <p class='gray' style='margin: 4px 0px 5px'>Категория:
+                <% @post_categories.each_with_index do |category, index| %>
+                    <%= link_to category.name, "/category/#{category.alt}", class: 'gray', rel: 'nofollow' %>
+                    <% unless category_len-1 == index %>
+                    <span class='gray'> / </span>
+                    <% end %>
+                <% end %>
+                </p>
+                <div class='clear'></div>
+                <% end %>
+                <!--/noindex-->
+
+                <% unless post_len-1 == index %>
+                    <div class='hr' style='margin-bottom: 15px;'></div>
+                <% end %>
+
+            <% end %>
+
+        <% else %>
+
+            <p>Такой страницы не существует.</p>
+
+        <% end %>
+
+
+
+    <%# end %>
+
+
+<%= will_paginate(@posts).gsub('main/posts?page=1"','"').html_safe rescue nil %>
+<%= render 'benefits' %>

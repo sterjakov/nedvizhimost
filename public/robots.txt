@@ -1,0 +1,20 @@
+User-agent: *
+Disallow: /category/*
+Disallow: /realty/*
+Disallow: /katalog_arendi/
+Disallow: /katalog_prodaji/
+Disallow: /katalog_arendi/*
+Disallow: /katalog_prodaji/*
+Disallow: /tag/*
+Disallow: /admin/*
+Disallow: /admin/*
+Disallow: /page/404/
+Disallow: /main/*
+Disallow: /index.html
+
+User-agent: Mediapartners-Google
+Disallow:
+
+Sitemap: http://nedwizhimostwmoskwe.ru/sitemap.xml
+Host: http://nedwizhimostwmoskwe.ru/
+

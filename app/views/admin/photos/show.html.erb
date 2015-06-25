@@ -1,0 +1,43 @@
+<h1>Просмотр фотографии #<%= @photo.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_photo_path(@photo) %> |
+    <%= link_to 'Назад', admin_photos_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@photo.created_at, format: :comment) %>
+    </p>
+
+
+    <p>
+      <b><%= t('activerecord.attributes.photo.image') %></b>
+      <%= @photo.image %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.photo.house') %></b>
+      <%= @photo.house_id %>
+    </p>
+
+
+  </div>
+</div>

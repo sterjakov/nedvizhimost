@@ -1,0 +1,14 @@
+<p>
+  <b><%= t('activerecord.attributes.house.sell_type') %></b>
+  <%= House::SELL_TYPE[@house.sell_type][0] if @house.sell_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.price') %></b>
+  <%= @house.price %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.credit') %></b>
+  <%= House::CREDIT[@house.credit][0] if @house.credit %>
+</p>

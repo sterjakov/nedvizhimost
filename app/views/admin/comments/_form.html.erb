@@ -1,0 +1,93 @@
+<% if @comment.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@comment.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @comment.errors.count %> <%= Russian::p(@comment.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @comment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <a name='notice'></a>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='add-comment block'>
+  <div class="offset">
+
+    <% if controller_name == 'main'
+         form_url    = main_post_path(alt: @post[:alt], anchor: 'form')
+         form_record = @comment
+       else
+         form_url    = false
+         form_record = [:admin, @comment]
+       end %>
+    <a name='form'></a>
+    <%= form_for(form_record, url: form_url) do |f| %>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <div class='hr'></div>
+
+      <div class="field">
+        <%= f.label :author, class: 'required' %>
+        <%= f.text_field :author %>
+      </div>
+      <div class="field">
+        <%= f.label :email, class: 'required' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="field">
+        <%= f.label :description, class: 'required' %>
+        <%= f.text_area :description, cols: 44, rows: 7 %>
+      </div>
+
+      <% if controller_name == 'main' %>
+      <div class="fields">
+        <%= f.label :captcha, class: 'required' %>
+        <%= f.simple_captcha label: 'captcha', add_to_base: true %>
+      </div>
+      <% end %>
+
+      <% unless controller_name == 'main' %>
+
+      <div class="fields">
+        <%= f.label :post_id %>
+        <%= f.select :post_id, Post.all.map {|post| [post.name, post.id]}, {} ,{ style: 'width: 200px;'} %>
+      </div>
+
+      <div class="fields">
+        <%= f.label :status, class: 'required' %>
+        <%= f.select :status, House::STATUS, prompt: true %>
+      </div>
+
+      <% else %>
+
+      <div class="field">
+        <%= f.hidden_field :post_id, value: params[:id] %>
+      </div>
+
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit t('add_comment'), class: 'button' %>
+      </div>
+    <% end %>
+
+    </div>
+</div>

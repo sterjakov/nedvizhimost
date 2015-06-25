@@ -1,0 +1,66 @@
+<h1>Просмотр заказа #<%= @order.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_order_path(@order) %> |
+    <%= link_to 'Назад', admin_orders_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+<div class='block'>
+  <div class='offset'>
+    <p id="notice"><%= notice %></p>
+  </div>
+</div>
+
+<div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@order.created_at, format: :comment) %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.order.author') %></b>
+      <%= @order.author %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.order.phone') %></b>
+      <%= @order.phone %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.order.email') %></b>
+      <%= @order.email %>
+    </p>
+
+    <p class='desc'>
+      <b><%= t('activerecord.attributes.order.description') %></b>
+      <span>
+        <%= @order.description %>
+      </span>
+      <div class='clear'></div>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.order.house_id') %></b>
+      <%= link_to(@order.house.address, edit_admin_house_path(id:@order.house, params: { realty_type: (@order.house.realty_type == 1) ? 'sell' : 'rent' }))  %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.order.status') %></b>
+      <%= House::STATUS[@order.status][0] %>
+    </p>
+
+  </div>
+</div>
+
+

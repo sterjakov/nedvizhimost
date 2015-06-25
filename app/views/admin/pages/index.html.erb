@@ -1,0 +1,38 @@
+<h1>Все страницы</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новая страница', new_admin_page_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <table>
+      <tr>
+        <th><%= t('activerecord.attributes.page.name') %></th>
+        <th><%= t('activerecord.attributes.page.alt') %></th>
+        <th></th>
+      </tr>
+
+        <% @pages.each do |page| %>
+          <tr>
+            <td><%= link_to page.name, edit_admin_page_path(page) %></td>
+            <td><%= page.alt %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, page] %>
+              <%= link_to '[х]', [:admin, page], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+
+        <%= will_paginate @pages %>
+
+    </div>
+</div>
+
+

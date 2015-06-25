@@ -1,0 +1,33 @@
+<h1>Все ссылки на все статьи</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('activerecord.attributes.link.name')%></th>
+        <th><%= t('activerecord.attributes.link.url')%></th>
+        <th>Статья</th>
+        <th></th>
+      </tr>
+
+      <% @links.each do |link| %>
+          <tr>
+            <td><%= link_to( link.name, edit_admin_link_path(link)) %></td>
+            <td><%= link_to truncate(link.url, length: 30), link.url %></td>
+            <td><%= link_to truncate(link.post.name, length: 30), [:edit, :admin, link.post] %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, link] %>
+              <%= link_to '[х]', [:admin, link], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <%= will_paginate @links %>
+
+  </div>
+</div>
+
+
+
+

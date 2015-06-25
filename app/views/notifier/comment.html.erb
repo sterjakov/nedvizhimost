@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+<h1>Новый комментарий с сайта "Недвижимость в Москве"</h1>
+<p>
+  <b>Cтатья:</b>       <%= @comment.post.name %>    <br />
+  <b>Автор:</b>        <%= @comment.author %>       <br />
+  <b>E-Mail:</b>       <%= @comment.email %>        <br />
+  <b>Комментарий:</b>  <%= @comment.description %>  <br />
+</p>
+
+Ссылка на комментарий в админке: <br />
+<%= admin_comment_url(@comment) %>
+
+<br />
+<br />
+
+Ссылка на статью: <br />
+<%= main_post_url(alt: @comment.post.alt) %>
+
+</body>
+</html>

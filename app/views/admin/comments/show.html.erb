@@ -1,0 +1,64 @@
+<h1>Просмотр комментария #<%= @comment.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to('Одобрить', approve_admin_comments_path(id: @comment.id)) + " | " if @comment.status == 0 %>
+    <%= link_to 'Редактировать', edit_admin_comment_path(@comment) %> |
+    <%= link_to('Смотреть на сайте', "/#{@comment.post.alt}#comment-#{@comment.id}") + " | " %>
+    <%= link_to 'Назад', admin_comments_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@comment.created_at, format: :comment) %>
+    </p>
+
+    <p class='desc'>
+      <b><%= t('activerecord.attributes.comment.description') %></b>
+      <span>
+        <%= @comment.description %>
+      </span>
+      <div class='clear'></div>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.comment.author') %></b>
+      <%= @comment.author %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.comment.email') %></b>
+      <%= @comment.email %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.comment.status') %></b>
+      <%= House::STATUS[@comment.status][0] %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.comment.post_id') %></b>
+      <%= link_to @comment.post.name, edit_admin_post_path(@comment.post)  %>
+    </p>
+
+
+
+  </div>
+</div>

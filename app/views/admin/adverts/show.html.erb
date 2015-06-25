@@ -1,0 +1,43 @@
+<h1>Просмотр рекламного блока #<%= @advert.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_advert_path(@advert) %> |
+    <%= link_to 'Назад', admin_adverts_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.advert.position') %></b>
+      <%= @advert.get_position %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.advert.name') %></b>
+      <%= @advert.name %>
+    </p>
+    
+    <p>
+      <b><%= t('activerecord.attributes.advert.description') %></b>
+      <%= @advert.description %>
+    </p>
+
+
+  </div>
+</div>

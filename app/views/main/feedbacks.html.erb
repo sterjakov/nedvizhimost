@@ -1,0 +1,45 @@
+<% content_for :title do %><%= 'Отзывы' + @title_postfix %><% end %>
+<% content_for :meta_keywords do %>Отзывы, каталог, недвижимость, москва<% end %>
+<% content_for :meta_description do %>Отзывы о недвижимости в Москве<% end %>
+
+<div id='breadcrumbs'>
+  <%= link_to 'Главная', root_path, class: 'gray' %>
+  <span class="gray">/</span>
+  <%= content_tag('a', 'Отзывы', class: 'gray') %>
+</div>
+
+
+<% len = @feedbacks.length %>
+<% @feedbacks.each_with_index do |feedback, index| %>
+
+    <p class='gray head'>
+      <span class="blue no-decoration"><%= feedback.author %></span> пишет:
+    </p>
+    <div class="space"></div>
+    <p>
+      <%= feedback.description %>
+    </p>
+
+    <div class='clear'></div>
+
+    <% unless len-1 == index %>
+        <div class='hr' style='margin-bottom: 15px;'></div>
+    <% end %>
+
+<% end %>
+
+<%= will_paginate @feedbacks %>
+
+
+<!--
+<div style='width: 100%; height: 10px;'></div>
+<h3 class=''>Страницы</h3>
+<div style=''></div>
+<div class='block pagination'>
+  <div class='offset'>
+    <%= will_paginate @feedbacks %>
+  </div>
+</div>
+-->
+
+<%= render 'benefits' %>

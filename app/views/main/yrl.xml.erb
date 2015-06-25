@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<realty-feed xmlns="http://webmaster.yandex.ru/schemas/feed/realty/2010-06">
+     <generation-date><%= Time.now.to_time.iso8601 %></generation-date>
+     
+     <% @yrl.each do |house| %>
+       <%= content_tag(:offer, "internal-id" => house[:id]) do %>
+         <%= content_tag(:type, house[:type])%>
+         <%= content_tag('property-type', house[:property_type])%>
+         <%= content_tag('category', house[:category])%>
+         <%= content_tag('url',house[:url])%>
+         <%= content_tag('payed-adv',house[:payed_adv])%>
+         <%= content_tag('manually-added',house[:manually_added])%>
+         <%= content_tag('creation-date',house[:creation_date])%>
+         <%= content_tag('last-update-date',house[:last_update_date])%>        
+         
+         <%= content_tag('location') do %> 
+           <%= content_tag('country',house[:country]) if house[:country]%>           
+           <%= content_tag('locality-name',house[:locality_name]) if house[:locality_name]%>  
+           <%= content_tag('address',house[:address]) if house[:address]%>
+             <% if house[:metro_name] %>
+               <%= content_tag('metro') do %>                                          
+                 <%= content_tag('name',house[:metro_name]) if house[:metro_name]%>               
+                 <%= content_tag('time-on-transport',house[:time_on_transport]) if house[:time_on_transport]%>         
+                 <%= content_tag('time-on-foot',house[:time_on_foot]) if house[:time_on_foot]%>                                       <% end %>
+             <% end %>
+         <% end %>       
+         
+         <%= content_tag('sales-agent') do %>
+           <%= content_tag('name',house[:agent_name])%>                     
+           <%= content_tag('phone',house[:agent_phone])%>
+           <%= content_tag('email',house[:agent_email])%>
+           <%= content_tag('category',house[:agent_category])%>
+           <%= content_tag('organization',house[:agent_organization])%>                                            
+           <%= content_tag('url',house[:agent_url])%>           
+         <% end %>
+         
+         <%= content_tag('price') do %>
+           <%= content_tag('value',house[:price_value]) if house[:price_value] %>
+           <%= content_tag('currency',house[:price_currency]) if house[:price_currency] %>
+           <%= content_tag('period',house[:price_period]) if house[:price_period] %>           
+         <% end %>
+         
+         <% if house[:images] %>
+           <% house[:images].each do |image| %>
+             <%= content_tag('image',image.image) %>
+           <% end %>
+         <% end %>
+         
+        <%= content_tag('agent-fee',house[:agent_fee]) if house[:agent_fee] %>
+        <%= content_tag('mortgage',house[:mortgage]) if house[:mortgage] %>        
+        <%= content_tag('rent-pledge',house[:rent_pledge]) if house[:rent_pledge] %>
+        <%= content_tag('with-pets',house[:with_pets]) if house[:with_pets] %>
+        <%= content_tag('with-children',house[:with_children]) if house[:with_children] %>
+        <%= content_tag('balcony',house[:balcony]) if house[:balcony] %>
+        <%= content_tag('description',house[:description]) if house[:description].present? %>
+        <%= content_tag('area') do %>
+          <%= content_tag('value',house[:area_space]) if house[:area_space] %>
+          <%= content_tag('unit',house[:unit]) if house[:unit] %>          
+        <% end %>   
+        <%= content_tag('living-space') do %>     
+          <%= content_tag('value',house[:living_space]) if house[:living_space] %>
+          <%= content_tag('unit',house[:unit]) if house[:unit] %>
+        <% end %>
+        <% if house[:kitchen_sapce] %>
+          <%= content_tag('kitchen-space') do %>     
+            <%= content_tag('value',house[:kitchen_space]) if house[:kitchen_space] %>
+            <%= content_tag('unit',house[:unit]) if house[:unit] %>
+          <% end %>
+        <% end %>
+        <%= content_tag('rooms',house[:rooms]) if house[:rooms] %>
+        <%= content_tag('room-furniture',house[:room_furniture]) if house[:room_furniture] %>        
+        <%= content_tag('kitchen-furniture',house[:kitchen_furniture]) if house[:kitchen_furniture] %>        
+        <%= content_tag('bathroom-unit',house[:bathroom_unit]) if house[:bathroom_unit] %>        
+        <%= content_tag('floor',house[:floor]) if house[:floor] %>        
+        <%= content_tag('floor-total',house[:floor_total]) if house[:floor_total] %>        
+        <%= content_tag('television',house[:television]) if house[:television] %>        
+        <%= content_tag('washing-machine',house[:washing_mashine]) if house[:washing_mashine] %>        
+        <%= content_tag('refrigerator',house[:refrigerator]) if house[:refrigerator] %>                    
+                  
+       <% end %>
+     <% end %>
+     
+</realty-feed>

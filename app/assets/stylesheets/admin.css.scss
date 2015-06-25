@@ -1,0 +1,489 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require application
+ *= require reset
+ *= require_self
+ *= require jquery.Jcrop
+ *= require jquery-ui
+ */
+
+body {
+  font-family: arial;
+  color:  #939393;
+}
+
+div.ui-datepicker{
+  font-size:12px;
+}
+
+
+.jqEasyCounterMsg {
+  display: block;
+  float: left;
+  text-align: center;
+  padding: 2px 5px;
+  margin: 2px;
+  background-color: #f1f1f1;
+  color: #fff;
+
+}
+
+.jcrop-holder {
+  margin-bottom: 10px;
+}
+
+.clear {
+  clear: both;
+}
+
+p {
+  color:  #939393;
+  font-size: 15px;
+  font-family: Arial;
+}
+
+h1, h2 {
+  margin: 10px 0px 10px;
+}
+
+.active {
+  display: block !important;
+}
+
+.hidden_fields {
+  display: none;
+}
+
+
+.blue {
+  color:  #1a86f1 !important;
+}
+
+.photos {
+  .field {
+    img {
+      padding: 1px 3px 0px 0px;
+      float: left;
+    }
+  }
+}
+
+.gray {
+  color: #939393 !important;
+}
+
+b {
+  font-weight: 600;
+}
+
+a {
+  color:  #1a86f1;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.offset {
+  margin: 10px;
+}
+
+.block {
+  border: 3px #f1f1f1 solid;
+
+  ul {
+
+    margin-left: 5px;
+
+    a {
+      color: #939393;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    li {
+      list-style: circle;
+      list-style-position: inside;
+      li {
+        padding-left: 15px;
+      }
+    }
+  }
+}
+
+
+form {
+  label {
+    font-size: 14px;
+    display: block;
+    float: left;
+    width: 130px;
+    display: block;
+    text-align: right;
+    padding: 4px 4px 0px 0px;
+  }
+
+  input, textarea, select {
+    margin: 2px 0px 2px;
+    border: 1px solid #cfcfcf;
+    padding: 2px 4px 2px;
+    color: #666666;
+    background-color: #fff;
+  }
+
+  .actions {
+
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px #dcdcdc solid;
+    padding-left: 184px;
+
+    input {
+      background-color: #1988f4;
+      border: none;
+      color: #d9e4ff;
+      padding: 7px 10px 7px 10px;
+      font-size: 17px;
+      &:hover {
+        cursor: pointer;
+        color: #fff;
+      }
+    }
+  }
+
+  .checkboxes {
+    input {
+      margin: 5px 0px 5px;
+    }
+
+    .left {
+      width: 180px;
+      float: left;
+    }
+
+    .center {
+      width: 180px;
+      float: left;
+    }
+
+    .right {
+      width: 180px;
+      float: left;
+    }
+
+    label {
+      width: 150px !important;
+    }
+  }
+
+  .add_fields {
+    font-size: 14px;
+    display: block;
+    margin: 5px 0px  0px 184px;
+  }
+
+  .remove_fields {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  span.info {
+    font-size: 14px;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .help {
+    float: left;
+    margin: 5px 0px 0px 5px;
+  }
+
+}
+
+
+
+
+#wrapper {
+  width:  865px;
+  margin:  0 auto;
+
+  #main {
+
+    overflow: hidden;
+
+    hr {
+      background-color: #cfcfcf;
+      border: 0;
+      height: 1px;
+      margin: 12px 0px;
+    }
+
+    .hr {
+      height: 1px;
+      background-color:  #dcdcdc;
+      border: 0px;
+      display: block;
+      margin: 10px 0px;
+    }
+
+    .space {
+      width: 100%;
+      height: 10px;
+    }
+
+    #left {
+      width: 210px;
+      float: left;
+
+      .block {
+        margin-right: 7px;
+      }
+
+      .menu {
+        padding: 10px;
+
+        a {
+          line-height: 15px;
+          font-size: 14px;
+          display: block;
+          width: 180px;
+          height: 36px;
+          margin: 0px 10px 10px 0px;
+        }
+
+      }
+    }
+
+    #center {
+      width: 655px !important;
+      float: left;
+
+      form .actions {
+
+        input {
+          background-color: #1988f4;
+          border: none;
+          color: #d9e4ff;
+          padding: 7px 10px 7px 10px;
+          font-size: 17px;
+          &:hover {
+            cursor: pointer;
+            color: #fff;
+          }
+        }
+      }
+
+      .pagination {
+
+        em.current {
+          color: #1a86f1;
+        }
+
+        a {
+          padding: 3px 3px 0px 3px !important;
+        }
+
+        p {
+          padding: 0px 0px 0px 0px !important;
+        }
+      }
+
+      .moderation {
+        background-color: #d9e4ff;
+      }
+
+      .search {
+        overflow: hidden;
+
+        .left {
+          width: 280px;
+          float: left;
+        }
+
+        .right {
+          width: 260px;
+          float: left;
+
+        }
+
+        .checkbox {
+          input {
+            margin: 5px 0px 0px;
+          }
+        }
+
+        .multiple {
+
+          select {
+            width: 130px;
+            height: 100px;
+            float: left;
+            display: block;
+          }
+
+          .clear_all {
+            color: #666666;
+            font-size: 14px;
+            margin-left: 303px;
+          }
+
+          .add_remove {
+            padding: 20px 5px 5px 5px;
+            float: left;
+
+            a {
+              background-color: #fff;
+              width: 18px;
+              height: 18px;
+              border: 1px solid #cfcfcf;
+              color: #666666;
+              text-decoration: none;
+              padding: 5px;
+              display:block;
+              margin-bottom: 4px;
+            }
+          }
+        }
+      }
+
+      .sell_fields, .rent_fields {
+        display:none;
+      }
+
+      label {
+        font-size: 14px;
+        display: block;
+        float: left;
+        width: 180px;
+        display: block;
+        text-align: right;
+        padding: 4px 4px 0px 0px;
+      }
+
+      label.required:after{
+        content:" *";
+      }
+
+      .field_with_errors {
+        color: red;
+      }
+
+      #error_explanation {
+        h2 {
+          color: red;
+        }
+
+        ul {
+          li {
+            color: #000;
+          }
+        }
+      }
+
+      label.desc {
+        text-align: left;
+        clear: both;
+        display: block;
+        overflow: hidden;
+        margin: 3px 0px 4px;
+      }
+
+      p.desc {
+
+        span {
+          display: block;
+          width: 470px;
+          padding-left: 5px;
+          float: left;
+        }
+
+        b {
+          float: left;
+        }
+      }
+
+      p#notice {
+        color: green;
+      }
+
+      b {
+        color: #919191;
+        width: 150px;
+        display: inline-block;
+        text-align: right;
+      }
+
+
+      p {
+        color: #1a86f1;
+        margin-bottom: 5px;
+      }
+
+      h1 {
+        color:#1a86f1;
+      }
+
+      ul {
+        li {
+          font-size: 14px;
+          margin: 5px 0px 5px;
+
+          li {
+            margin-left: 20px;
+          }
+
+          a {
+            color:#1a86f1;
+          }
+        }
+      }
+
+    }
+
+    #center > a {
+      margin: 10px 0px 10px;
+      display: inline-block;
+    }
+
+    .admin_menu {
+      padding: 0px;
+
+      li {
+        display: block;
+        width: 180px;
+        padding: 5px 0px 5px;
+      }
+    }
+
+    table {
+      width: 100%;
+
+      .actions {
+
+        a {
+          font-size: 14px;
+        }
+      }
+
+      th {
+        text-align: left;
+        padding-bottom: 10px;
+      }
+
+      td {
+        border: 2px solid #f0f0f0;
+        padding: 5px 5px 5px 5px;
+        color: #666666;
+      }
+    }
+  }
+}

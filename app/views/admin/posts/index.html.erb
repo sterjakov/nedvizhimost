@@ -1,0 +1,52 @@
+<h1>Все статьи</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новая статья', new_admin_post_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <%= form_for([:admin, @post], method: :get) do |f| %>
+
+        <div class="field">
+          <%= f.text_field :name, placeholder: 'Поиск статьи по заголовку', size: '88' %>
+          <%= f.submit 'Искать', style: 'cursor: pointer;' %>
+        </div>
+
+    <% end %>
+  </div>
+</div>
+
+<br>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('activerecord.attributes.post.name') %></th>
+        <th><%= t('activerecord.attributes.post.category_id') %></th>
+        <th></th>
+      </tr>
+
+      <% @posts.each do |post| %>
+          <tr>
+            <td><%= link_to truncate(post.name, length: 35), edit_admin_post_path(post) %></td>
+            <td>
+              <%= link_to(truncate(post.category.name, length: 20), edit_admin_category_path(post.category.id)) if post.category.present? %>
+            </td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, post] %>
+              <%= link_to '[х]', [:admin, post], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+
+    </table>
+
+    <%= will_paginate @posts %>
+
+  </div>
+</div>

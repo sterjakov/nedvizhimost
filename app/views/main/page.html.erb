@@ -1,0 +1,41 @@
+<% @title_pagination = (params[:page].to_i > 1) ? " (страница #{params[:page]})" : '' %>
+<% content_for :title do %><%= @page[:title].to_s + @title_pagination + @title_postfix %><% end %>
+<% content_for :meta_keywords do %><%= @page[:meta_keywords] %><% end %>
+<% content_for :meta_description do %><%= @page[:meta_description] %><% end %>
+
+<% if ['katalog-arendi', 'katalog-prodaji'].include? @request_path %>
+
+
+    <div id='breadcrumbs'>
+      <%= link_to 'Главная', root_path, class: 'gray', rel: 'nofollow' %>
+      <span class="gray">/</span>
+      <%= content_tag('a', (@request_path == 'katalog-prodaji') ? 'Продажа недвижимости' : 'Аренда недвижимости', class: 'gray') %>
+
+      <a href="#x" class='blue custom_search' rel="nofollow" style='float: right;'>Расширенный поиск</a>
+      <div class='search_icon'></div>
+
+    </div>
+
+
+<% else %>
+
+    <div id='breadcrumbs'>
+      <%= link_to 'Главная', root_path, class: 'gray', rel: 'nofollow' %>
+      <span class="gray">/</span>
+      <%= content_tag('a',@page[:name], class: 'gray', rel: 'nofollow') %>
+    </div>
+
+<% end %>
+
+<div class='description'>
+    <%= render :partial => "main/pages/before_#{params[:alt]}" rescue nil %>
+
+    <p class='top'>
+      <%= @page[:description].html_safe rescue nil %>
+    </p>
+
+    <%= render :partial => "main/pages/after_#{params[:alt]}" rescue nil %>
+</div>
+<div class='clear'></div>
+
+<%= render 'benefits' %>

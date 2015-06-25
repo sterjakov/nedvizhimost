@@ -1,0 +1,70 @@
+<% if @category.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@category.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @category.errors.count %> <%= Russian::p(@category.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @category.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+    <%= form_for([:admin, @category]) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <hr>
+
+        <div class="field">
+          <%= f.label :name, class: 'required' %>
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="field">
+          <%= f.label :alt, class: 'required' %>
+          <%= f.text_field :alt %>
+        </div>
+
+        <div class="field">
+          <%= f.label :weight %>
+          <%= f.number_field :weight %>
+        </div>
+
+        <div class="field">
+          <%= f.label :parent_id %>
+          <%= f.select :parent_id, categories_for_select, selected: @category.parent_id %>
+        </div>
+
+
+        <div class="field">
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </div>
+
+        <div class="field">
+          <%= f.label :meta_key %>
+          <%= f.text_field :meta_key %>
+        </div>
+
+        <div class="field">
+          <%= f.label :meta_description %>
+          <%= f.text_field :meta_description %>
+        </div>
+
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+
+    <% end %>
+  </div>
+</div>
+

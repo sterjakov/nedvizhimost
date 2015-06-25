@@ -1,0 +1,37 @@
+<h1>Все фотографии</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новая фотография', new_admin_photo_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th>Image</th>
+        <th>House</th>
+        <th></th>
+      </tr>
+
+      <% @photos.each do |photo| %>
+          <tr>
+            <td><%= link_to image_tag(photo.image, height: '50'), edit_admin_photo_path(photo) %></td>
+            <td><%= photo.house_id %></td>
+            <td class='actions'>
+              <%= link_to 'Показать', [:admin, photo] %>
+              <%= link_to '[х]', [:admin, photo], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+

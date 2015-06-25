@@ -1,0 +1,75 @@
+<% if @link.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@link.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @link.errors.count %> <%= Russian::p(@link.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @link.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <a name='notice'></a>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<div class='block'>
+  <div class='offset'>
+
+    <%= form_for([:admin,@link]) do |f| %>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <div class='hr'></div>
+
+        <% if @link.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
+
+              <ul>
+                <% @link.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :name, class: 'required' %>
+          <%= f.text_field :name, size: '60' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :url, class: 'required' %>
+          <%= f.text_field :url, size: '60' %>
+        </div>
+
+        <div class="field">
+          <%= f.hidden_field :post_id %>
+        </div>
+
+
+
+        <div class="actions">
+          <%= f.submit 'Сохранить ссылку!', class: 'button' %>
+        </div>
+    <% end %>
+
+  </div>
+</div>
+
+

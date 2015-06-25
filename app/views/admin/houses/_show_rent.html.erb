@@ -1,0 +1,59 @@
+<p>
+  <b><%= t('activerecord.attributes.house.residential_type') %></b>
+  <%= House::RESIDENTIAL_TYPE[@house.residential_type][0] if @house.residential_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.deposit') %></b>
+  <%= House::YES[@house.deposit == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.period') %></b>
+  <%= @house.period %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.comission') %></b>
+  <%= @house.comission %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.furniture_status') %></b>
+  <%= House::FURNITURE_STATUS[@house.furniture_status][0] if @house.furniture_status %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.furniture_floor') %></b>
+  <%= House::YES[@house.furniture_floor == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.furniture_kitchen') %></b>
+  <%= House::YES[@house.furniture_kitchen == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.refrigerator') %></b>
+  <%= House::YES[@house.refrigerator == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.tv') %></b>
+  <%= House::YES[@house.tv == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.animal') %></b>
+  <%= House::YES[@house.animal == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.children') %></b>
+  <%= House::YES[@house.children == true ? 0 : 1][0] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.house.washing_mashine') %></b>
+  <%= House::YES[@house.washing_mashine == true ? 0 : 1][0] %>
+</p>

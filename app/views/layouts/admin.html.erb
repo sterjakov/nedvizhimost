@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Панель администратора</title>
+  <%= stylesheet_link_tag    "admin", :media => "all" %>
+  <%= javascript_include_tag "admin" %>
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+</head>
+<body id='admin'>
+<%= debug @results if @results.present? %>
+<div id="wrapper">
+
+    <div class="clear"></div>
+
+    <div id="main">
+      <div id="left">
+        <h2>Меню администратора</h2>
+        <div class='block'>
+          <div class='offset'>
+            <div class="admin_menu">
+              <%= render_admin_menu %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="center">
+        <%= yield %>
+      </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

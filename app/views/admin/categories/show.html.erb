@@ -1,0 +1,69 @@
+<h1>Просмотр категории #<%= @category.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_category_path(@category) %> |
+    <%= link_to('Смотреть на сайте', "/category/#{@category.alt}") %> |
+    <%= link_to 'Назад', admin_categories_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.name') %></b>
+      <%= @category.name %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.alt') %></b>
+      <%= @category.alt %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.weight') %></b>
+      <%= @category.weight %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.title') %></b>
+      <%= @category.title %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.meta_key') %></b>
+      <%= @category.meta_key %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.meta_description') %></b>
+      <%= @category.meta_description %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.category.parent_id') %></b>
+      <% if @category.parent.present? %>
+        <%= link_to(@category.parent.name, edit_admin_category_path(@category.parent.id)) %>
+      <% else %>
+        Корень
+      <% end %>
+    </p>
+
+
+
+  </div>
+</div>

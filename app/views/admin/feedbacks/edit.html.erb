@@ -1,0 +1,17 @@
+<h1>Редактирование отзыва</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to('Одобрить', approve_admin_feedbacks_path(id: @feedback.id)) + " | " if @feedback.status == 0 %>
+    <%= link_to 'Показать', [:admin, @feedback] %> |
+    <%= link_to('Смотреть на сайте', "/otzivi") + " | " if @feedback.status == 1 %>
+    <%= link_to 'Назад', admin_feedbacks_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+
+
+<%= render 'form' %>
+

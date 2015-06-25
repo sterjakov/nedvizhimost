@@ -1,0 +1,88 @@
+<% if @order.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@order.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @order.errors.count %> <%= Russian::p(@order.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @order.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<% if flash[:notice] %>
+    <a name='notice'></a>
+    <div class='block'>
+      <div class='offset'>
+        <div id="notice">
+          <h2 class='green'><%= flash[:notice] %></h2>
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+
+<div class='order block'>
+  <div class='offset'>
+
+    <% if controller_name == 'main'
+         form_url    = main_realty_path(id: params[:id], anchor: 'form')
+         form_record = @order
+       else
+         form_url    = false
+         form_record = [:admin, @order]
+       end %>
+    <a name='form'></a>
+    <%= form_for(form_record, url: form_url) do |f| %>
+
+    <p>Поля отмеченные * обязательны для заполнения</p>
+
+    <div class='hr'></div>
+
+      <div class="field">
+        <%= f.label :author, class: 'required' %>
+        <%= f.text_field :author %>
+      </div>
+      <div class="field">
+        <%= f.label :phone, class: 'required' %>
+        <%= f.text_field :phone %>
+      </div>
+      <div class="field">
+        <%= f.label :email, class: 'required' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="field">
+        <%= f.label :description, class: 'required' %>
+        <%= f.text_area :description, cols: 40, rows: 5 %>
+      </div>
+
+      <% if controller_name == 'main' %>
+       <div class="field">
+        <%= f.label :captcha, class: 'required' %>
+        <%= f.simple_captcha label: 'captcha' %>
+      </div>
+      <% end %>
+
+      <% unless controller_name == 'main' %>
+      <div class="field">
+        <%= f.label :status, class: 'required' %>
+        <%= f.select :status, House::STATUS, prompt: true %>
+      </div>
+      <% end %>
+
+      <%= f.hidden_field :house_id %>
+
+      <div class="actions">
+        <%= f.submit t('make_order'), class: 'button' %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

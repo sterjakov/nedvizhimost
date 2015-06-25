@@ -1,0 +1,43 @@
+<h1>Все комментарии</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новый коментарий', new_admin_comment_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('created_at') %></th>
+        <th><%= t('activerecord.attributes.comment.description')%></th>
+        <th><%= t('activerecord.attributes.comment.post_id')%></th>
+        <th></th>
+      </tr>
+
+      <% @comments.each do |comment| %>
+          <tr class='<%= 'moderation' if comment.status == 0 %>'>
+            <td><%= link_to I18n.localize(comment.created_at, :format => :long), edit_admin_comment_path(comment) %></td>
+            <td><%= truncate(comment.description, length: 30) %></td>
+            <td>
+              <%= link_to truncate(comment.post.name, length: 20), edit_admin_post_path(comment.post) %>
+            </td>
+            <td class='actions'>
+                <%= link_to 'Одобрить', approve_admin_comments_path(id: comment.id) if comment.status == 0 %>
+                <%= link_to 'Показать', [:admin, comment] %>
+                <%= link_to '[х]', [:admin, comment], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+
+    </table>
+
+    <%= will_paginate @posts %>
+
+  </div>
+</div>
+
+
+

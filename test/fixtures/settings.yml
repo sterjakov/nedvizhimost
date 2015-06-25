@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  title_prefix: MyString
+  email: MyString
+  meta_description: MyString
+  meta_keywords: MyString
+  similar_posts_count: 1
+  footer_description: MyText
+
+two:
+  title: MyString
+  title_prefix: MyString
+  email: MyString
+  meta_description: MyString
+  meta_keywords: MyString
+  similar_posts_count: 1
+  footer_description: MyText

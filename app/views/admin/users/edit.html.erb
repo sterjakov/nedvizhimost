@@ -1,0 +1,15 @@
+<h1>Редактирование пользователя</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Показать', [:admin, @user] %> |
+    <%= link_to 'Назад', admin_users_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+
+
+<%= render 'form' %>
+

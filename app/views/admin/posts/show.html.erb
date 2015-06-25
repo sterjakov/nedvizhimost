@@ -1,0 +1,92 @@
+<h1>Просмотр статьи #<%= @post.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_post_path(@post) %> |
+    <%= link_to('Смотреть на сайте', "/#{@post.alt}") + " | " %>
+    <%= link_to 'Назад', admin_posts_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<% if @post.image.thumb.present? %>
+<label class='desc'>Картинка</label>
+
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <%= image_tag @post.image.thumb, style: 'margin-left: 30px;' %>
+  </div>
+</div>
+
+<% end %>
+
+<label class='desc'><%= t('activerecord.attributes.post.description') %></label>
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <%= @post.description %>
+  </div>
+</div>
+
+
+<label class='desc'>Статья</label>
+<div class='clear'></div>
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('created_at') %></b>
+      <%= l(@post.created_at, format: :comment) %>
+    </p>
+
+    <p>
+        <b><%= t('activerecord.attributes.post.name') %></b>
+        <%= @post.name %>
+    </p>
+
+    <p>
+        <b><%= t('activerecord.attributes.post.tag_list') %></b>
+        <%= @post.tag_list %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.post.alt') %></b>
+      <%= @post.alt %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.post.meta_key') %></b>
+      <%= @post.meta_key %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.post.meta_description') %></b>
+      <span style="display:inline-block; width: 450px; vertical-align: top;">
+        <%= @post.meta_description %>
+      </span>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.post.category_id') %></b>
+      <%= link_to(@post.category.name, edit_admin_category_path(@post.category)) if @post.category %>
+    </p>
+
+
+  </div>
+</div>

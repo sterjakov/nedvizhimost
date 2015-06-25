@@ -1,0 +1,38 @@
+<h1>Просмотр станции пользователя #<%= @user.id %></h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Редактировать', edit_admin_user_path(@user) %> |
+    <%= link_to 'Назад', admin_users_path %>
+  </div>
+</div>
+
+<div class='space'></div>
+
+<% if notice %>
+    <div class='block'>
+      <div class='offset'>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+
+    <div class='space'></div>
+<% end %>
+
+
+<div class='block'>
+  <div class='offset'>
+
+    <p>
+      <b><%= t('activerecord.attributes.user.name') %></b>
+      <%= @user.name %>
+    </p>
+
+    <p>
+      <b><%= t('activerecord.attributes.user.role') %></b>
+      <%= @user.get_role %>
+    </p>
+
+
+  </div>
+</div>

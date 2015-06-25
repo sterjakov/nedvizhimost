@@ -1,0 +1,41 @@
+<h1>Все отзывы</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <%= link_to 'Новый отзыв', new_admin_feedback_path %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th><%= t('created_at') %></th>
+        <th><%= t('activerecord.attributes.feedback.author')%></th>
+        <th><%= t('activerecord.attributes.feedback.description')%></th>
+        <th></th>
+      </tr>
+
+      <% @feedbacks.each do |feedback| %>
+          <tr class='<%= 'moderation' if feedback.status == 0 %>'>
+            <td><%= link_to(I18n.localize(feedback.created_at, :format => :long), edit_admin_feedback_path(feedback)) %></td>
+            <td><%= truncate(feedback.author, length: 30)  %></td>
+            <td><%= truncate(feedback.description, length: 30) %></td>
+            <td class='actions'>
+              <%= link_to 'Одобрить', approve_admin_feedbacks_path(id: feedback.id) if feedback.status == 0 %>
+              <%= link_to 'Показать', [:admin, feedback] %>
+              <%= link_to '[х]', [:admin, feedback], method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <%= will_paginate @feedbacks %>
+
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,52 @@
+<h1>
+  <% if params[:realty_type] == 'sell' %>
+      Каталог продажи недвижимости
+  <% else %>
+      Каталог аренды недвижимости
+  <% end %>
+</h1>
+
+<div class='block'>
+  <div class='offset'>
+    <% if params[:realty_type] == 'sell' %>
+        <%= link_to 'Новая квартира на продажу', new_admin_house_path(realty_type: 'sell') %>
+    <% else %>
+        <%= link_to 'Новая квартира в аренду', new_admin_house_path(realty_type: 'rent') %>
+    <% end %>
+  </div>
+</div>
+<div class='space'></div>
+
+<div class='block'>
+  <div class='offset'>
+    <table>
+      <tr>
+        <th>#</th>
+        <th><%= t('created_at') %></th>
+        <th><%= t('activerecord.attributes.house.address')%></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <% @houses.each do |house| %>
+          <tr class='<%= 'moderation' if house.status == 0 %>'>
+            <td><%= house.id %></td>
+            <td><%= link_to I18n.localize(house.created_at, :format => :long), edit_admin_house_path(house, realty_type: params[:realty_type]) %></td>
+            <td><%= truncate(house.address, :length => 30) %></td>
+            <td class='actions'>
+              <%= link_to 'Одобрить', approve_admin_houses_path(id: house.id) if house.status == 0 %>
+              <%= link_to 'Показать', admin_house_path(house,:realty_type => params[:realty_type]) %>
+              <%= link_to '[х]', admin_house_path(house, :realty_type => params[:realty_type]), method: :delete, data: { confirm: 'Вы уверены?' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <%= will_paginate @houses %>
+
+  </div>
+</div>
+
+
+

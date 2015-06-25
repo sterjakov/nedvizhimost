@@ -1,0 +1,79 @@
+<% if @page.errors.any? %>
+    <div class='block'>
+      <div class='offset'>
+        <div id="error_explanation">
+          <h2><%= Russian::p(@page.errors.count, "Обнаружена","Обнаружены","Обнаружено") %> <%= @page.errors.count %> <%= Russian::p(@page.errors.count, "ошибка","ошибки","ошибок") %> :</h2>
+
+          <ul>
+            <% @page.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    <div class='space'></div>
+<% end %>
+
+<%= form_for([:admin, @page]) do |f| %>
+
+<div class='page block'>
+    <div class='offset'>
+
+        <p>Поля отмеченные * обязательны для заполнения</p>
+
+        <hr>
+
+          <div class="field">
+            <%= f.label :name, class: 'required' %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="field">
+            <%= f.label :alt, class: 'required' %>
+            <%= f.text_field :alt %>
+          </div>
+
+    </div>
+</div>
+
+<%= f.label :description, class: 'desc required' %>
+
+<div class='clear'></div>
+
+<div class='block'>
+    <div class='offset'>
+
+        <div class="field">
+          <%= f.cktext_area :description, ckeditor: {disableNativeSpellChecker: false, coreStyles_bold: { element: 'b', overrides: 'strong' }, removePlugins: 'liststyle,tabletools,contextmenu', height: 400,toolbar: [['Source'],['-'], ['Cut'],['Copy'],['Paste'],['PasteText'],['PasteFromWord'],['-'],['Undo'],['Redo'],['Bold'],['Italic'],['Underline'],['Strike'],['Subscript'],['Superscript'],['Smiley'],[''],['NumberedList'],['BulletedList'],['Blockquote'],['Link'],['Image'],['Format'],['Em']]} %>
+        </div>
+
+    </div>
+</div>
+
+<div class='space'></div>
+
+<div class='block'>
+    <div class='offset'>
+          <div class="field">
+            <%= f.label :title, class: 'required' %>
+            <%= f.text_field :title %>
+          </div>
+          <div class="field">
+            <%= f.label :meta_keywords %>
+            <%= f.text_field :meta_keywords %>
+          </div>
+          <div class="field">
+            <%= f.label :meta_description %>
+            <%= f.text_area :meta_description, rows: 4, style:'float: left; margin-bottom: 5px;' %>
+            <div class='clear'></div>
+          </div>
+          <div class="actions">
+            <%= f.submit  %>
+          </div>
+
+    </div>
+</div>
+
+<% end %>
